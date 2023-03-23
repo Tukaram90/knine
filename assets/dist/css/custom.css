@@ -1,0 +1,19 @@
+/* 
+this css for user admin(customer)
+*/
+
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+.marginBottom{
+    margin-bottom: 5px !important;
+}
+
+.colorChangeBg{
+    background-color: #F19F1F !important;
+}
