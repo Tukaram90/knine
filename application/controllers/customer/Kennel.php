@@ -7,7 +7,10 @@ class Kennel extends CI_Controller {
         $this->load->library('user_agent');
         $this->load->model('mastersetting_model');
         $this->load->model('kennel_model');
-        $this->load->model('banner_model');
+        
+        Header('Access-Control-Allow-Origin: *');
+      Header('Access-Control-Allow-Headers: *');
+      Header('Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE');
     }
 
     public function kennel_list(){
@@ -26,15 +29,15 @@ class Kennel extends CI_Controller {
         $data['FatherdogListByUser'] = $this->kennel_model->father_dog_list_by_userID();
         $data['MotherdogListByUser'] = $this->kennel_model->mother_dog_list_by_userID();
         $data['dogInfo'] = '';                    
-        //$this->load->view('useradmin/kennel-add',$data);
-        $this->load->view('useradmin/dog-add',$data);       
+        //$this->load->view('useradmin/kennel-add',$data); 
+        $this->load->view('useradmin/dog-add',$data);   
     }
     
     public function save_dog()
     {   
         
         if(isset($_POST['FinishForm'])){ 
-            
+           
             $dog_id = $this->input->post('dog_id', true);
             $parent_id = $this->input->post('dog_father_step2', true); 
             $enterdDOB = $this->security->xss_clean($this->input->post('dog_dob_step2', true));
@@ -106,8 +109,6 @@ class Kennel extends CI_Controller {
                     );
                     $this->kennel_model->save_or_update_dog($saveImg);
                 }
-
-               
             }
            
             if($dog_id){               
@@ -119,18 +120,6 @@ class Kennel extends CI_Controller {
         }
     }
 
-    private function set_upload_options(){
-        //upload an image options
-        $config = array();
-        $config['upload_path'] = 'uploads/doggallery/';
-        $config['allowed_types'] = 'gif|jpg|png|jpeg';
-        $config['max_size'] = '0';
-        $config['overwrite'] = FALSE;
-        $config['encrypt_name'] = TRUE;
-
-        return $config;
-    }
-
     public function edit_dog($id)
     {  
         $data['active']  = 'EditDog'; 
@@ -139,8 +128,8 @@ class Kennel extends CI_Controller {
         $data['FatherdogListByUser'] = $this->kennel_model->father_dog_list_by_userID();
         $data['MotherdogListByUser'] = $this->kennel_model->mother_dog_list_by_userID();
         $data['dogInfo'] = $this->kennel_model->get_dog_info_by_dog_id($id);
-        $this->load->view('useradmin/dog-edit',$data);         
-        // $this->load->view('useradmin/kennel-add',$data); 
+        $this->load->view('useradmin/dog-edit',$data);                  
+        //$this->load->view('useradmin/kennel-add',$data); 
     }
 
     public function delete_dog($id){
@@ -151,7 +140,7 @@ class Kennel extends CI_Controller {
         $this->session->set_flashdata('success',$success);
         redirect(base_url().'kennel-list');
     }
-
+    
     public function delete_temparay_dog($id){       
         $this->kennel_model->delete_temparay_dog($id);
         $success = 'Dog is deleted successfully';
@@ -585,12 +574,13 @@ class Kennel extends CI_Controller {
                         'groups' => $this->input->post('group')[$i],
                         'comments_judging' => $this->input->post('comments_judging')[$i],
                         'updated_at' => date('Y-m-d'),                    
-                    );                  
+                    ); 
                     
+                   
                 }
                
                 $this->kennel_model->update_award_details($awardDetails);
-                $success = 'Award Details is updated successfully!';
+                $success = 'Show Details is updated successfully!';
                 $this->session->set_flashdata('success',$success);
                 redirect(base_url().'award-list');
             
@@ -602,7 +592,7 @@ class Kennel extends CI_Controller {
         $id = $_POST['id'];       
         $this->kennel_model->delete_award_details_by_id($id);        
     }
-    
+
     public function set_notification(){
         $userID = $this->session->userdata("u_user_id");
         $result = $this->kennel_model->before_three_days_notify_schedule($userID); 
@@ -623,174 +613,8 @@ class Kennel extends CI_Controller {
 		else{
 			die(json_encode(array("success"=>"false","msg"=>"Please try again.","list"=>"No data","count"=>'')));
 		}
-    }
-
-    public function tree_structure(){
-        $data['active']  = 'structure';
-        $data['title']   = 'structure List';
-        $user_id = $this->session->userdata("u_user_id");
-        $result = $this->kennel_model->get_parent_with_child_data($user_id);  
-        $data['dogList'] = $this->kennel_model->get_all_dogs_by_user_id();      
-        //$data['family'] = $this->createNode($parentArr);       
-        //$this->load->view('useradmin/family-tree-structure',$data);
-        //$family_tree = $this->getFamilyTree();
-      
-        $this->load->view('useradmin/tree-structure',$data);        
-    }
-
-    public function set_dogs_generationwise($DogArr, $dogID=0,$generation = 0){
-       
-        /*$genArr = array();
-        $generation = 1;
-        foreach($DogArr as $row){
-            
-            if(isset($row->parent_id)&& ($row->parent_id==0 || $row->parent_id==NULL) || isset($row->mother_id) &&  ($row->mother_id== 0 || $row->mother_id== NULL)){
-                $row->generation = $generation;
-                $genArr[] = $row;
-                return $genArr;
-            }else{
-                $row->generation = $generation;
-                $genArr[] = $row;
-                $genArr = array_merge($genArr, (array)$this->set_dogs_generationwise($DogArr,$row->parent_id));
-                $genArr = array_merge($genArr, (array)$this->set_dogs_generationwise($DogArr,$row->mother_id));
-            }           
-            return $genArr;
-            $generation ++ ;           
-        }
-       
-        return $genArr;*/
-        // $result = array();
-
-        // foreach ($DogArr as $item) {
-        //     if ($item->dog_id == $dogID) {
-        //         $item->generation = $generation;
-        //         $item->fatherdogs = $this->set_dogs_generationwise($DogArr, $item->parent_id, $generation + 1);
-        //         $item->motherdogs = $this->set_dogs_generationwise($DogArr, $item->mother_id, $generation + 1);
-        //         $result[] = $item;
-        //     }
-        // }
+    }  
     
-        // return $result;
-
-        $currentLevel = array();
-        $children = array();
-
-        foreach ($DogArr as $member) {
-            if ($member->dog_id == $dogID) {
-                $currentLevel[] = $member;
-                $children = array_merge($children, buildFamilyTree($DogArr, $member['id']));
-            }
-        }
-
-        return array_merge($currentLevel, $children);
-    }
-
-    public function get_dog_pedgree(){
-        $user_id = $this->session->userdata("u_user_id");
-        $dog_id = $this->security->xss_clean($this->input->post('dog_id', true));
-        $family_tree = $this->getFamilyTree($dog_id);        
-        $arr = $this->set_dogs_generationwise($family_tree,$dog_id);        
-          
-    }
-
-    public function getFamilyTree($dog_id) {
-        $result = array();
-       
-        $this->db->select('dog_id,parent_id,mother_id,dog_name,gender,dog_img');
-        $this->db->where('dog_id', $dog_id);
-        $query = $this->db->get('tbl_dogs');
-        $res = $query->first_row('array');  
-        
-        if(isset($res['parent_id']) &&  ($res['parent_id']== 0 || $res['parent_id']== NULL) &&  ($res['mother_id']== 0 || $res['mother_id']== NULL)){
-            foreach($query->result() as $row) {                      
-                $result[] = $row;
-            }
-            return $result;
-           
-        }
-       
-        foreach($query->result() as $row) {  
-            $result[] = $row; 
-           $result = array_merge($result, (array)$this->getFamilyTree($row->parent_id));
-           $result = array_merge($result, (array)$this->getFamilyTree($row->mother_id));
-        } 
-        return $result;
-    }   
-
-    function membersTree($parentID){
-        $response = $this->kennel_model->get_child_data_by_parent_id($parentID);
-        $dataRow= array();
-        $childArr = array();
-        foreach($response as $row){
-            $id = $row['dog_id'];
-            $dataRow[$id]['dog_id'] = $row['dog_id'];
-            $dataRow[$id]['dog_name'] = $row['dog_name'];
-            $dataRow[$id]['dog_img'] = $row['dog_img'];
-            $dataRow[$id]['children'] = array_values($this->membersTree($row['dog_id']));
-           
-        }
-        return $dataRow;
-    }
-
-    public function createNode($arrPedigree)
-    {   
-        if (is_array($arrPedigree)) {
-            $heredoc = '';
-            foreach ($arrPedigree as $nodeKey => $nodeValue) {
-                $baseURL = trim(base_url().'uploads/dogs/'.$arrPedigree[$nodeKey]['dog_img']);
-                $cntChild = @count($arrPedigree[$nodeKey]['children']);
-               
-                $heredoc.= "<td valign='top' align='center'>
-                                <table width='100' border='0' align='center' cellpadding='0' cellspacing='2' >
-                                    <tr valign='top'  align='center'>
-                                        <td align='center' width='100%' colspan='{$cntChild}' valign='top'>
-                                            <table style='cursor:pointer' width='150' height='100%' border='0' align='center' cellpadding='0' cellspacing='5' class='pedigree_node'>
-                                                <tr>
-                                                    <td align='center' valign='middle' width='100%' >
-                                                      <img src='$baseURL' alt='{$arrPedigree[$nodeKey]['dog_name']}' style='width:50px'/>
-                                                        <strong>{$arrPedigree[$nodeKey]['dog_name']}</strong>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                    </tr>";
-                
-                if ($cntChild != 0) {
-                    if ($cntChild == 1) {
-                        $heredoc.= "<tr><td class='tree_vertical_line' height='20'>&nbsp;</td></tr>";
-                    } else {
-                        $heredoc.= "<tr><td class='tree_vertical_line' height='20' colspan='{$cntChild}'>&nbsp;</td></tr><tr>";
-                        for ($i = 1; $i <= $cntChild; $i++) {
-                            if ($i == 1) {
-                                $className1 = '';
-                            } else {
-                                $className1 = 'tree_right_top_line';
-                            }
-
-                            if ($i == $cntChild) {
-                                $className2 = '';
-                            } else {
-                                $className2 = 'tree_left_top_line';
-                            }
-                            $heredoc.= "<td height='20'>
-                                            <table width='100%' border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td width='50%' class='{$className1}'>&nbsp;</td>
-                                                    <td width='50%' class='{$className2}'>&nbsp;</td>
-                                                </tr>
-                                            </table>
-                                            </td>";
-                        }
-                        $heredoc.= '</tr>';
-                    }
-                    $heredoc.= $this->createNode($arrPedigree[$nodeKey]['children']);
-                }
-                $heredoc.= '</table></td>';
-            }
-            return $heredoc;
-        }
-    }
-
     public function check_unique_microchip(){
         if(isset($_POST['microchip_step1']) && !empty($_POST['microchip_step1'])){
             $microchip =  $_POST['microchip_step1'];
@@ -805,12 +629,12 @@ class Kennel extends CI_Controller {
             echo 'false';
         }
     }
-
+    
     public function entry_dog()
     {   
-     
+        
         if(isset($_POST['add-dog-form'])){ 
-           
+            
             $dog_id = $this->input->post('dog_id', true);
             $parent_id = $this->input->post('dog_father_step2', true); 
             $enterdDOB = $this->security->xss_clean($this->input->post('dog_dob_step2', true));
@@ -845,7 +669,7 @@ class Kennel extends CI_Controller {
                 'first_owner'     => $this->security->xss_clean($this->input->post('first_owner', true)),
                 'registration_no' => $this->security->xss_clean($this->input->post('registration', true)),             
             );   
-          
+            
            
             $response = $this->kennel_model->save_or_update_dog($form_data);
             if($dog_id){
@@ -882,7 +706,7 @@ class Kennel extends CI_Controller {
                     );
                     $this->kennel_model->save_or_update_dog($saveImg);
                 }
-
+                
                 // gallery insert
                 
                 if (!empty($_FILES['imageUpload']['name'][0])) {
@@ -924,7 +748,7 @@ class Kennel extends CI_Controller {
             redirect(base_url().'kennel-list');
         }
     }
-
+    
     public function save_sire_dam(){
         $dogName = $this->input->post('sireDamName');
         $microChipDamSire = $this->input->post('dogMicrochip');
@@ -944,5 +768,91 @@ class Kennel extends CI_Controller {
 		}
 
     }
+    
+    public function tree_structure(){
+        $data['active']  = 'Pedigree';
+        $data['title']   = 'structure List';
+        $user_id = $this->session->userdata("u_user_id");
+        $result = $this->kennel_model->get_parent_with_child_data($user_id);  
+        $data['dogList'] = $this->kennel_model->get_all_dogs_by_user_id();      
+        $this->load->view('useradmin/tree-structure',$data);        
+    }
+    
+    public function get_dog_pedgree(){
+        
+        $user_id = $this->session->userdata("u_user_id");
+        $dog_id = $this->security->xss_clean($this->input->post('dog_id', true));
+        $family_tree = $this->getFamilyTree($dog_id,0);
+        foreach ($family_tree as &$subarray) {
+            if ($subarray['pid'] == 0) {
+                unset($subarray['pid']);
+            }
+        }
+       header('Content-Type: application/json');
+       echo json_encode($family_tree);      
+       
+    }
+    public function getFamilyTree($dog_id,$level) {
+        $result = array();
+       
+        $this->db->select('dog_id,parent_id,mother_id,dog_name,gender,dog_img,chip_number,registration_no,date_of_birth,breeder');
+        $this->db->where('dog_id', $dog_id);
+        $query = $this->db->get('tbl_dogs');
+        $res = $query->first_row('array');  
+        $gen = $level;
+        if($res){
+         $childID = $res['dog_id'];
+        if(isset($res['parent_id']) &&  ($res['parent_id']== 0 || $res['parent_id']== NULL) &&  ($res['mother_id']== 0 || $res['mother_id']== NULL)){
+            foreach($query->result() as $row) {                      
+                $chipNUmber = ($row->chip_number)?$row->chip_number:'';
+                $registerno = ($row->registration_no)?$row->registration_no:'';
+                $dob = ($row->date_of_birth)?$row->date_of_birth:'';
+                $breeder = ($row->breeder)?$row->breeder:'';
+                $rowData = array(
+                    'id'=>$row->dog_id,
+                    'pid'=> $gen,
+                    'dog_id'=> $row->dog_id,
+                    'parent_id'=>$row->parent_id,
+                    'name'=> ucfirst($row->dog_name),
+                    'gender'=> ucfirst($row->gender),
+                    'Microchip Number'=> $chipNUmber,
+                    'Register Number'=> $registerno,
+                    'Birth Date'=> $dob,
+                      'photo1'=> ($row->dog_img)? base_url().'uploads/dogs/'.$row->dog_img : base_url().'assets/imgs/dplaceholder.jpg',
+                );
+                $result[] = $rowData;
+            }
+           
+           
+            return $result;
+           
+        }
+       
+        foreach($query->result() as $row) {  
+           $chipNUmber = ($row->chip_number)?$row->chip_number:'';
+           $registerno = ($row->registration_no)?$row->registration_no:'';
+           $dob = ($row->date_of_birth)?$row->date_of_birth:'';
+           $breeder = ($row->breeder)?$row->breeder:'';
+            $result[] = array(
+                'id'=>$row->dog_id,
+                'pid'=>  $gen,
+                'dog_id'=>$row->dog_id,
+                'parent_id'=>$row->parent_id,
+                'mother_id'=>$row->mother_id,
+                'name'=> ucfirst($row->dog_name),
+                'gender'=> ucfirst($row->gender),
+                'Microchip Number'=> $chipNUmber,
+                'Register Number'=> $registerno,
+                'Birth Date'=> $dob,
+               'photo1'=> ($row->dog_img)? base_url().'uploads/dogs/'.$row->dog_img : base_url().'assets/imgs/dplaceholder.jpg',
+           );
+           $result = array_merge($result, (array)$this->getFamilyTree($row->parent_id,$childID));
+           $result = array_merge($result, (array)$this->getFamilyTree($row->mother_id,$childID));
+           $gen++ ;
+        }
+       
+        return $result;
+        }
+    } 
 
 }

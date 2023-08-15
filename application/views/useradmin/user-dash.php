@@ -54,6 +54,7 @@
           <div class="info-box-content">
             <span class="info-box-text">Advertise</span>
             <a href="<?php echo base_url();?>advertise" title="Advertise" class="<?php if($active == 'Advertise'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Advertise</span></a>
+            <a href="<?php echo base_url();?>pedigree" title="Pedigree" class="<?php if($active == 'Pedigree'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Pedigree</span></a>
           </div>           
         </div>         
       </div>          

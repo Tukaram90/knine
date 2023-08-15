@@ -2,7 +2,6 @@
 if(empty($this->session->userdata('is_user_logged_in'))) {
   redirect(base_url().'user');
 }
-
 echo chk_user_login_with_multiple_system();
 ?>
 <!DOCTYPE html>
@@ -29,33 +28,36 @@ echo chk_user_login_with_multiple_system();
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/custom.css">
 
   <link href="<?php echo base_url(); ?>webasset/fonts/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://unpkg.com/balloon-css/balloon.min.css"> <!-- for tooltips-->
   <style>
     .activeSubheading{
       color:#D81B60  !important;
       
     }
+    
+    /*.collapseIcon{*/
+    /*   // margin-left:-25px !important;*/
+    /*    font-size:30px;*/
+    /*}*/
     .skin-blue .sidebar a {
-      color: #3c8dbc ;
+      color: #3c8dbc;
     }
-   
+
     @media screen and (min-width: 768px) {
       .dashscreenshowForMobile{
         display:none;
       }
     }
-
-   .collapseIcon{margin-left:-35px !important;}
   </style> 
- 
 </head>
+ 
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
-  <header class="main-header">   
+  <header class="main-header" >   
     <a href="" class="logo colorChangeBg" >     
       <span class="logo-mini"><b>K</b>9</span>     
-      <span class="logo-lg"><b>K9</b>Widget</span>
-      <!-- <img src="<?php echo base_url(); ?>webasset/img/google-btn.png" class="img-responsive" id="weblogo" alt=""> -->
+      <span class="logo-lg"><img src="<?php echo base_url(); ?>webasset/img/logo.jpg" class="img-responsive pull-left"  alt="k9 Widget"></span>
     </a>
 
     <nav class="navbar navbar-static-top colorChangeBg" >     
@@ -71,11 +73,11 @@ echo chk_user_login_with_multiple_system();
               <i class="fa fa-home"></i>             
             </a>            
           </li>
-          <li class="messages-menu">
-            <a href="<?php echo base_url() ?>home" class="dropdown-toggle"  title="Own Template">
+          <!--<li class="messages-menu">
+            <a href="<?php echo base_url() ?>home" class="dropdown-toggle" target="_blank" title="Own Template">
               <i class="fa fa-tv"></i>             
             </a>            
-          </li>
+          </li>-->
 
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -98,7 +100,6 @@ echo chk_user_login_with_multiple_system();
             </a>
             <ul class="dropdown-menu">             
               <li class="user-header colorChangeBg">
-                <!-- <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"> -->
                 <?php if($this->session->userdata('is_google_user')=='yes'){ ?>
                   <img src="<?= $this->session->userdata('uprofilePicture') ?>" class="img-circle" alt="User Image" onerror="this.style.display='none'">
                 <?php }elseif($this->session->userdata('is_google_user')=='no'){ ?>
@@ -125,27 +126,26 @@ echo chk_user_login_with_multiple_system();
               
             </ul>
           </li> 
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>        
+                  
         </ul>
       </div>
     </nav>
   </header>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">   
-    <section class="sidebar">      
+    <section class="sidebar">
+      
       <div class="user-panel">
         <div class="pull-left image">         
-        <?php if($this->session->userdata('is_google_user')=='yes'){ ?>
-          <img src="<?= $this->session->userdata('uprofilePicture') ?>" class="img-circle" alt="User Image" onerror="this.style.display='none'">
-        <?php }elseif($this->session->userdata('is_google_user')=='no'){ ?>
-          <img src="<?php echo base_url(); ?>uploads/userprofile/<?= $this->session->userdata('uprofilePicture') ?>" class="img-circle" alt="User Image">
-        <?php }elseif($this->session->userdata('ukennelLogo')){ ?>
-          <img src="<?php echo base_url(); ?>uploads/kennellogo/<?= $this->session->userdata('ukennelLogo') ?>" class="img-circle" alt="User Image">
-        <?php }else{?>
-          <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-        <?php } ?>
+          <?php if($this->session->userdata('is_google_user')=='yes'){ ?>
+            <img src="<?= $this->session->userdata('uprofilePicture') ?>" class="img-circle" alt="User Image" onerror="this.style.display='none'">
+          <?php }elseif($this->session->userdata('is_google_user')=='no'){ ?>
+            <img src="<?php echo base_url(); ?>uploads/userprofile/<?= $this->session->userdata('uprofilePicture') ?>" class="img-circle" alt="User Image">
+          <?php }elseif($this->session->userdata('ukennelLogo')){ ?>
+            <img src="<?php echo base_url(); ?>uploads/kennellogo/<?= $this->session->userdata('ukennelLogo') ?>" class="img-circle" alt="User Image">
+          <?php }else{?>
+            <img src="<?php echo base_url(); ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <?php } ?>
         </div>
         <div class="pull-left info">
           <p>Welcome </p>
@@ -196,7 +196,7 @@ echo chk_user_login_with_multiple_system();
          
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="fa fa-laptop collapseIcon"></i></span>
+                <span class="info-box-icon bg-aqua"><i class="fa fa-dashboard collapseIcon"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Dashboard</span>
                   <a href="<?php echo base_url();?>user-dashboard" title="Dashboard" class="<?php if($active == 'userdashboard'){ echo 'activeSubheading'; } ?> dashscreenshowForMobile"><span class="info-box-text">Info</span></a>
@@ -215,8 +215,10 @@ echo chk_user_login_with_multiple_system();
                 <div class="info-box-content" style="padding: 2px 10px !important;">
                   <span class="info-box-text">Dog Details</span>
                   <a href="<?php echo base_url();?>kennel-list" title="Dog Details" class="<?php if($active == 'kennellist' || $active == 'addkennel' || $active == 'Hierarchical' || $active == 'treestructure' || $active == 'EditDog'){ echo 'activeSubheading'; }?>"><span class="info-box-text">Add Dog</span></a>
+                  <!--<a href="<?php echo base_url();?>kennel-list" title="Dog List" class="<?php if($active == 'kennellist'){echo 'activeSubheading'; }?>"><span class="info-box-text">List</span></a>-->
                   <a href="<?php echo base_url();?>shows" title="Book Event" class="<?php if($active == 'Show'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">CALENDAR</span></a>
-                  <a href="<?php echo base_url();?>award-list" title="Award" class="<?php if($active == 'AwardList' || $active == 'addAward' || $active == 'EditAward' ){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Award</span></a>
+                  <!--<a href="<?php echo base_url();?>award-list" title="SHOW RECORDS" class="<?php if($active == 'AwardList' || $active == 'addAward' || $active == 'EditAward' ){ echo 'activeSubheading'; } ?>"><span class="info-box-text">SHOW RECORDS</span></a>-->
+                  <a href="<?php echo base_url();?>shows-list" title="Show" class="<?php if($active == 'showList' || $active == 'addShow' || $active == 'editShow' ){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Show RECORDS</span></a>
                   
                 </div>           
               </div>         
@@ -230,9 +232,10 @@ echo chk_user_login_with_multiple_system();
                 <span class="info-box-icon bg-purple"><?= set_currency() ?></span>
                 <div class="info-box-content">
                   <span class="info-box-text">EXPENSE</span>                  
-                  <a href="<?php echo base_url();?>add-expense" title="Expense Operation" class="<?php if($active=='addexpense'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Add Expense</span></a>
-                  <a href="<?php echo base_url();?>expense-list" title="Expense Operation" class="<?php if($active == 'expense'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">List</span></a>
+                   <a href="<?php echo base_url();?>expense-list" title="Expense Operation" class="<?php if($active=='addexpense' || $active == 'expense'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Add Expense</span></a>
+                  <a href="<?php echo base_url();?>handler-expense" title="Handler Operation" class="<?php if($active=='addHandlerExpense' || $active == 'HandlerExpenseList' || $active == 'EditHandlerExpense'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Handler Expense</span></a>
                   <a href="<?php echo base_url();?>reports" ><span class="info-box-text">summary</span></a>
+                  
                 </div>           
               </div>         
             </div>        
@@ -244,21 +247,22 @@ echo chk_user_login_with_multiple_system();
                 <span class="info-box-icon bg-maroon"><i class="fa  fa-stethoscope collapseIcon"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Vaccination</span>
-                  <a href="<?php echo base_url();?>add-vaccination" title="Vaccination History" class="<?php if($active == 'GettingVaccination' || $active == 'newVaccination' || $active =='EditVaccination' || $active == 'DetailsVaccination'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Add Vaccination</span></a>
-                  <a href="<?php echo base_url();?>vaccination-list" title="Vaccination History" class="<?php if($active == 'GettingVaccination' || $active == 'vaccinationList' ){ echo 'activeSubheading'; } ?>"><span class="info-box-text">List</span></a>
+                  <a href="<?php echo base_url();?>vaccination-list" title="Vaccination History" class="<?php if($active == 'GettingVaccination' || $active == 'newVaccination' || $active =='EditVaccination' || $active == 'DetailsVaccination' || $active == 'vaccinationList'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Add Vaccination</span></a>
+                  <!--<a href="<?php echo base_url();?>vaccination-list" title="Vaccination History" class="<?php if($active == 'GettingVaccination' || $active == 'vaccinationList' ){ echo 'activeSubheading'; } ?>"><span class="info-box-text">List</span></a>-->
                 </div>           
               </div>         
             </div>          
         </li>
         
-        <li class="<?php if($active == 'Advertise'){ echo 'active'; }?>">          
+        <li class="<?php if($active == 'Advertise' || $active == 'Pedigree' ){ echo 'active'; }?>">          
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="info-box">
                 <span class="info-box-icon bg-green"><i class="glyphicon glyphicon-picture collapseIcon"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Advertise</span>
-                  <a href="<?php echo base_url();?>advertise" title="Advertise" class="<?php if($active == 'Advertise'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Create Ad</span></a>
+                  <a href="<?php echo base_url();?>advertise" title="Advertise" class="<?php if($active == 'Advertise'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">create Ad</span></a>
                   <a href="<?php echo base_url();?>downloaded-banner" title="Downloaded History" class="<?php if($active == 'History'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Ads</span></a>
+                   <a href="<?php echo base_url();?>pedigree" title="Pedigree" class="<?php if($active == 'Pedigree'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Pedigree</span></a>
                 </div>           
               </div>         
             </div>          

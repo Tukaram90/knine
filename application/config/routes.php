@@ -91,8 +91,19 @@ $route['add-award'] = 'customer/kennel/add_award';
 $route['delete-award/(:any)'] = 'customer/kennel/delete_award/$1';
 $route['edit-award/?(:any)?'] = 'customer/kennel/edit_award/$1';
 
-
-$route['img-operation/(:any)'] = 'customer/kennel/img_operation/$1';
+$route['shows-list'] = 'customer/shows';
+$route['shows-add'] = 'customer/shows/add_show'; 
+$route['delete-show/(:any)'] = 'customer/shows/delete_show/$1';
+$route['edit-show/?(:any)?'] = 'customer/shows/edit_show/$1';
+$route['handler-expense'] = 'customer/shows/handler_expense_list';
+$route['save-handler-expense'] = 'customer/shows/save_handler_expense';
+$route['delete-handler-expense/(:any)'] = 'customer/shows/delete_handler_expense/$1';
+$route['edit-handler-expense/(:any)'] = 'customer/shows/edit_handler_expense/$1';
+$route['handler-invoice/(:any)'] = 'customer/shows/handler_invoice/$1';
+$route['create-pdf/(:any)'] = 'customer/shows/create_pdf/$1';
+$route['dog-gallery/?(:any)?'] = 'customer/Dgallery/dog_gallery/$1'; 
+$route['save-photo'] = 'customer/Dgallery/save_photo'; 
+$route['pedigree'] = 'customer/kennel/tree_structure'; 
 
 $route['logout'] = 'customer/webuser/logout'; 
 
@@ -100,8 +111,3 @@ $route['logout'] = 'customer/webuser/logout';
 // admin
 $route['administrator'] = 'login';
 $route['user-list'] = 'admin/user_list';
-
-
-
-
-
