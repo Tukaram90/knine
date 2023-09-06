@@ -1,5 +1,5 @@
 <?php $this->load->view('useradmin/comman/userheader'); ?>
-<!-- <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/> -->
+<!--<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>-->
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/calendar/fullcalendar/lib/main.min.css">
 
 <style>
@@ -37,7 +37,7 @@
                     <div id="calendar"></div>
                 </div>
             </div>           
-           <div class="col-md-3">
+            <div class="col-md-3">
                 <div class="box box-primary rounded-0 shadow">
                     <div id="alertSuccess" class="alert alert-success alert-dismissible" style="display:none">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                 </div>
-            </div>            
+            </div>        
         </div>
    
     <!-- Event Details Modal -->

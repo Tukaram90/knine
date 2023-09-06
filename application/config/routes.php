@@ -104,10 +104,15 @@ $route['create-pdf/(:any)'] = 'customer/shows/create_pdf/$1';
 $route['dog-gallery/?(:any)?'] = 'customer/Dgallery/dog_gallery/$1'; 
 $route['save-photo'] = 'customer/Dgallery/save_photo'; 
 $route['pedigree'] = 'customer/kennel/tree_structure'; 
-
+$route['literacy'] = 'customer/kennel/literacy_tree_structure';
 $route['logout'] = 'customer/webuser/logout'; 
 
 
 // admin
 $route['administrator'] = 'login';
 $route['user-list'] = 'admin/user_list';
+
+
+
+
+

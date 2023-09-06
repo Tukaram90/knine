@@ -2,24 +2,14 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 <div class="content-wrapper">
     <section class="content-header">
-      <h1>
-       Category Form 
-        <small>Category</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>       
-        <li class="active">Add New Category</li>
-      </ol>
+      <h1> Category Form </h1>     
     </section>
     
     <section class="content">
       <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">             
-          <div class="box box-primary"> 
-            <div class="box-header with-border">
-              <a href="<?php echo base_url(); ?>category/category_list" class="btn btn-info btn-xs pull-right" >List</a> 
-            </div>                       
+          <div class="box box-primary">                                    
             <form role="form" method="post" action="<?php echo base_url() ?>category/add_category">
               <div class="box-body">
                 <div class="form-group">
@@ -38,6 +28,7 @@
               <div class="box-footer">
                 <input type="hidden" name="catgory_id" value="<?php echo (isset($category['catgory_id']) && !empty($category['catgory_id']))?$category['catgory_id']:'' ?>">
                 <button type="submit" class="btn btn-primary" name="catgory-form" onclick="return category_validation();">Submit</button>
+                <a href="<?php echo base_url(); ?>category/category_list" class="btn btn-info pull-right" >Return</a> 
               </div>
             </form>
           </div> 

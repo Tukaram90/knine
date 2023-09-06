@@ -1,25 +1,13 @@
 <?php $this->load->view('admin/comman/header'); ?>
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-       Gallery  
-        <small>Gallery</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>       
-        <li class="active">Edit Gallery</li>
-      </ol>
-    </section>
-    
+    <section class="content-header"><h1>Gallery </h1></section>    
     <section class="content">
       <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">             
-          <div class="box box-primary"> 
-            <div class="box-header with-border">
-              <a href="<?php echo base_url(); ?>gallery/gallery_list" class="btn btn-info btn-xs pull-right" >List</a> 
-            </div>                       
+          <div class="box box-primary">
+                                   
             <form role="form" method="post" action="<?php echo base_url() ?>gallery/edit_gallery/<?php echo $galleryRow['gallery_id'];  ?>" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="col-md-12 col-lg-12 col-sm-12">
@@ -30,7 +18,7 @@
                 </div>
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="form-group">
-                      <label for="file">Product Image</label>(Only jpg, jpeg, gif and png are allowed)
+                      <label for="file">Image</label>(Only jpg, jpeg, gif and png are allowed)
                       <input type="file" class="form-control" name="photo" id="photo" id="photo"   >
                     </div>
                 </div>
@@ -51,6 +39,7 @@
               </div>             
               <div class="box-footer">                
                 <button type="submit" class="btn btn-primary" name="edit-galery-form" onclick="return slider_validation();">Submit</button>
+                <a href="<?php echo base_url(); ?>gallery/gallery_list" class="btn btn-info  pull-right" >Return</a> 
               </div>
             </form>
           </div> 
@@ -67,7 +56,7 @@
     $(".error").remove();
     var file =  $('#photo').val();
     if(file == ''){
-        $('#photo').after('<span class="error" style="color:red;">Upload Product Image</span>');
+        $('#photo').after('<span class="error" style="color:red;">Select Image</span>');
         return false;
     }
     var allowedExtensions =  /(\.jpg|\.jpeg|\.png|\.gif)$/i;

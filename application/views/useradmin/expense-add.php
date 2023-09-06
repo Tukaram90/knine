@@ -70,6 +70,11 @@
                 <div class="box-footer">
                     <input type="hidden" name="expense_id" value="<?= $expense['expense_id'] ?? '' ?>">
                     <button type="submit" class="btn btn-primary"  name="add-expense-form">Submit</button>
+                    <?php  if(isset($expense['expense_id']) && !empty($expense['expense_id'])){ ?>
+                    <a href="<?php echo base_url()?>delete-expense/<?php echo $expense['expense_id']; ?>" class="btn btn-danger" onClick="return confirm('Are you sure?');">Delete</a>
+                     <a href="<?php echo base_url()?>expense-list" class="btn btn-info">Return</a>
+                    <?php } ?>
+                    
                 </div>
             </form>
         </div>

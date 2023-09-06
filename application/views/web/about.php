@@ -42,20 +42,20 @@
             </div>
            
             <div class="col-lg-2 col-md-3 res-margin">
-                <img src="<?php echo base_url(); ?>webasset/img/odebtmm1.jpeg" class="img-rounded center-block img-responsive" alt="">
+                <img src="<?php echo base_url(); ?>webasset/img/odebtm_about.jpeg" class="img-rounded center-block img-responsive" alt="">
                 <div class="info">
                     <p class="name">Mrs. Odebt Massey</p>
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 res-margin">
-                <img src="<?php echo base_url(); ?>webasset/img/amolss.jpeg" class="img-rounded center-block img-responsive" alt="">
+                <img src="<?php echo base_url(); ?>webasset/img/amol_about.jpeg" class="img-rounded center-block img-responsive" alt="">
                 <div class="info">
                     <p class="name">Mr. Amol Valimbe</p>
                 </div>
             </div>
-            
+            <!-- /col-lg-5-->
         </div>
-        <!-- /row -->
+       
         <div class="margin1 text-center ">
             <div class="well lightcolor row">
                 
@@ -148,7 +148,6 @@
             </div>
           
         </div>
-       
         <!-- <div class="row margin1">
             <div class="col-lg-7 col-sm-12 res-margin">
                 <h3 class="text-center">How We Started</h3>

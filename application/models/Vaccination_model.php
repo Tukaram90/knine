@@ -5,7 +5,7 @@ class Vaccination_model extends CI_Model
 {
     public function save_or_update_dose($data) {       
 
-        if(isset($data['id']) && !empty($data['id'])){
+        if($data['id'] && !empty($data['id'])){
             $this->db->where('id',$data['id']);
             $this->db->update('vaccination_tbl',$data);
             return $this->db->affected_rows();
@@ -24,14 +24,8 @@ class Vaccination_model extends CI_Model
             }else{
                 $this->db->insert('vaccination_tbl',$data);
                 return $this->db->insert_id();
-            }           
-            
+            }        
         }   
-    }
-
-    public function save_next_appointment($data) {       
-        $this->db->insert('schedule_list',$data);
-        return $this->db->insert_id();           
     }
 
     public function get_all_vacination_details_withdogs_by_user()
@@ -101,7 +95,14 @@ class Vaccination_model extends CI_Model
 		return $query->result_array();
     }
 
-    
+    // function getVaccinationName($postData){
+           
+    //     $this->db->select('id,vaccination_name');
+    //     $this->db->where('id', $postData['id']);
+    //     $q = $this->db->get('vaccination_title');
+      
+    //     return $q->first_row('array');
+    // }
 
     function check_dogId_indogtbl_vaccinationtbl($dogID){
         $this->db->where('dog_id',$dogID);
@@ -232,7 +233,10 @@ class Vaccination_model extends CI_Model
             return $result;           
     }
 
-    
+    public function save_next_appointment($data) {       
+        $this->db->insert('schedule_list',$data);
+        return $this->db->insert_id();           
+    }
 
     public function update_next_appointment($data) {       
         $this->db->where('vaccination_tblid',$data['vaccination_tblid']);

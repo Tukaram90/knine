@@ -63,13 +63,15 @@
                         <tr> 
                           <td><?= $i ?></td>
                           
-                          <td><a href="<?php echo base_url()?>vaccination-details/<?php echo $row['id']; ?>"><?= ucfirst($row['dog_name']) ?></a></td>
+                          <td><a href="<?php echo base_url()?>vaccination-details/<?php echo $row['id']; ?>" aria-label="Vaccination Details Page" data-balloon-pos="up" title="Vaccination Details Page"><?= ucfirst($row['dog_name']) ?></a></td>
                           <td>
+                             <a href="<?php echo base_url(); ?>getting-vaccinated-list/<?php echo $row['dog_id']; ?>" aria-label="Vaccination Operation Page" data-balloon-pos="up" >
                             <ul>
                               <?php foreach($row['vaccineDetails'] as $vaccine){ ?>
                                 <li><?= $vaccine['vaccination_name'] ?></li>                              
                               <?php } ?>
                             </ul>
+                            </a>
                           </td>
                           <td>
                             <?php foreach($row['vaccineDetails'] as $vaccine){ ?>

@@ -24,24 +24,13 @@
         <div class="container">
             <div class="row">
             
-                <div class="col-lg-5 col-md-5">
-                        <h3>Information </h3>
-                        <!-- <ul class="list-inline">
-                            <li><i class="fa fa-envelope"></i><a href="mailto:youremailaddress">k9widget@gmail.com</a></li><br>
-                            <li><i class="fa fa-phone margin-icon"></i>Call Us +91 83800 76949</li>
-                            <li><i class="fa fa-map-marker margin-icon"></i>123 Pune Mumbai highway, Pune</li>
-                        </ul>
-                        <h3>USA Address </h3>
-                        <ul class="list-inline">
-                            <li><i class="fa fa-envelope"></i><a href="mailto:youremailaddress">k9widget@gmail.com</a></li><br>
-                            <li><i class="fa fa-phone margin-icon"></i>Call Us +1 ( 719 ) 322-1100</li>
-                            <li><i class="fa fa-map-marker margin-icon"></i>P. O. Box 84, Yoder, Colorado 80864</li>
-                        </ul> -->
-                        
-                        <p>Elit uasi quidem minus id omnis a nibh fusce mollis imperdie tlorem ipuset phas ellus ac sodales Lorem ipsum dolor Phas ellus 
-                        adipisicing elit uasi quidem minus id omnis a nibh fusce mollis imperdie tlorem ipuset campas fincas
-                        </p>
-                        <img src="<?php echo base_url(); ?>webasset/img/contactpage1.png" alt="" class="img-rounded center-block img-responsive">             
+                <div class="col-lg-2 col-md-2">
+                    <!--<h3>Information </h3>-->
+                    <!-- <p>Elit uasi quidem minus id omnis a nibh fusce mollis imperdie tlorem ipuset phas ellus ac sodales Lorem ipsum dolor Phas ellus -->
+                    <!--adipisicing elit uasi quidem minus id omnis a nibh fusce mollis imperdie tlorem ipuset campas fincas-->
+                    <!--</p>-->
+                    <!--<img src="<?php echo base_url(); ?>webasset/img/contactpage1.png" alt="" class="img-rounded center-block img-responsive">-->
+                                
                 </div>
             
                 <div class="col-lg-6 col-md-6 col-lg-offset-1 col-md-offset-1 res-margin">
@@ -51,7 +40,7 @@
                         <div class="form-group">
                         <label>Name<span class="required">*</span></label>
                         <input type="text" name="name" id="name" class="form-control input-field" required="">                    
-                        <label>Email Adress <span class="required">*</span></label>
+                        <label>Email Address <span class="required">*</span></label>
                         <input type="email" name="email" id="email" class="form-control input-field" required="">           
                         <label>Subject</label>
                         <input type="text" name="subject" id="subject"  class="form-control input-field" required="">                            

@@ -21,7 +21,7 @@
                 <div id="memegenerator"></div>
             </div>
         </div>
-    </section>  
+    </section>
       
 </div>  
 <?php $this->load->view('useradmin/comman/userfooter'); ?>
@@ -40,38 +40,26 @@
             <?php foreach ($bannerList as $row){ ?>
                 {url: '<?php echo base_url(); ?>uploads/addvertisementbanner/<?= $row['banner']?>', title:'<?= $row['title']?>'},
             <?php } ?>
-            // {url: '<?php echo base_url(); ?>assets/dist/template/sky.jpg', title:'Sky Background'},
-            // {url: '<?php echo base_url(); ?>assets/dist/template/goldensunset.jpg', title:'Golden Sunset background'},
-            // {url: '<?php echo base_url(); ?>assets/dist/template/green.jpg', title:'Green Background'},
-            // {url: '<?php echo base_url(); ?>assets/dist/template/skyblue.jpg', title:'Skyblue Background'},
-            // {url: '<?php echo base_url(); ?>assets/dist/template/sunset.jpg', title:'Skyblue Background'},
-            // {url: '<?php echo base_url(); ?>assets/dist/template/smokesky.jpg', title:'Variant Skyblue Background'},
-            
         ],});        
       
         $('#image-maker').imageMaker();
        //The following code is for animate scrolling when open the page
-      
-      
      
-    //   var canvas =  document.querySelector('.amm_canvas').toDataURL();     
-    //   console.log(canvas)
+      //   var canvas =  document.querySelector('.amm_canvas').toDataURL();     
+      //   console.log(canvas)
        jQuery([document.documentElement, document.body]).animate({
         scrollTop: jQuery("#"+jQuery(":target").attr('id')).offset().top
-
        
-    }, 1000);
+      }, 1000);
     
     });
   </script>
-
-
   <script>
   sharerbox({
-  socialNetworks: 'facebook twitter whatsapp linkedin reddit',
-  behavior: 'popup',
-  position: 'right',
-  color: 'black',
-  visibility: true,
- });
+      socialNetworks: 'facebook twitter whatsapp linkedin reddit',
+      behavior: 'popup',
+      position: 'right',
+      color: 'black',
+      visibility: true,
+  });
 </script>

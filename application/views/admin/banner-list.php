@@ -1,20 +1,9 @@
 <?php $this->load->view('admin/comman/header'); ?>
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-       Banner List
-        <small>Banner tables</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>       
-        <li class="active">Banner List</li>
-      </ol>
-    </section>
+    <section class="content-header"><h1>Banner List</h1></section>
     <section class="content" style="min-height: 50px;">
-     
-        <a href="<?php echo base_url(); ?>banner/add_banner" class="btn bg-maroon margin btn-sm" style="float:right"> <i class="fa  fa-plus"></i> Add New</a>
-       
+     <a href="<?php echo base_url(); ?>banner/add_banner" class="btn bg-maroon margin btn-sm" style="float:right"> <i class="fa  fa-plus"></i> Add New</a>
     </section>
     <section class="content">
       <div class="row">
@@ -26,6 +15,7 @@
                 <p><?php echo $this->session->flashdata('error'); ?></p>
               </div>
 	            <?php
+              unset($_SESSION['error']);
 	        }
 	        if($this->session->flashdata('success')) {
 	            ?>
@@ -33,6 +23,7 @@
                 <p><?php echo $this->session->flashdata('success'); ?></p>
               </div>
 	            <?php
+              unset($_SESSION['success']);
 	        }
 	        ?>          
           <div class="box">
@@ -55,11 +46,13 @@
                         <tr> 
                           <td><?= $i ?></td>
                           <td>
+                          <a href="<?php echo base_url() ?>banner/edit_banner/<?php echo $addbaner['id']; ?>" >
                             <img src="<?php if(isset($addbaner['banner']) && !empty($addbaner['banner'])){ echo base_url(); ?>uploads/addvertisementbanner/<?= $addbaner['banner'];}?>" alt="Banner Image" style="width:50px">
+                          </a>
                           </td>  
-                          <td><?= $addbaner['title']; ?></td>                       
-                          <td><?= $addbaner['firstname']; ?></td>
-                          <td><?= date('d-m-Y',strtotime($addbaner['created_at'])); ?></td>   
+                          <td><a href="<?php echo base_url() ?>banner/edit_banner/<?php echo $addbaner['id']; ?>" ><?= $addbaner['title']; ?></a></td>                       
+                          <td><a href="<?php echo base_url() ?>banner/edit_banner/<?php echo $addbaner['id']; ?>" ><?= $addbaner['firstname']; ?></a></td>
+                          <td><a href="<?php echo base_url() ?>banner/edit_banner/<?php echo $addbaner['id']; ?>" ><?= date('d-m-Y',strtotime($addbaner['created_at'])); ?></a></td>   
                                      
                           <td>
                           <a href="<?php echo base_url() ?>banner/edit_banner/<?php echo $addbaner['id']; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>

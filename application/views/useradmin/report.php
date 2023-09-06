@@ -1,4 +1,10 @@
 <?php $this->load->view('useradmin/comman/userheader'); ?>
+<?php
+if(empty($this->session->userdata('is_user_logged_in'))) {
+  redirect(base_url().'user');
+}
+
+?>
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 <style>
   .highcharts-credits{
@@ -33,10 +39,12 @@
         <div class="col-md-6 col-sm-6 col-xs-12">
           <div class="info-box">
             <span class="info-box-icon bg-aqua"><?= set_currency() ?></span>
-            <div class="info-box-content">
-              <span class="info-box-text">Weekly Expense</span>
-              <span class="info-box-number"><?= $weekCount ?><small></small></span>
-            </div>           
+            <a href="#" id="showReportDetail">
+                <div class="info-box-content">
+                  <span class="info-box-text">Weekly Expense</span>
+                  <span class="info-box-number"><?= $weekCount ?><small></small></span>
+                </div>
+            </a>
           </div>         
         </div>  
       </div>
@@ -186,7 +194,6 @@
               events: {
                 click: function (event) {
                   var categoryName = event.point.category;
-                  var selecte_cat = encodeURIComponent(categoryName);
                   var monthYear = $('#datepicker').val();
                   var year = $('#datepickerforyear').val();
                   if(categoryName){
@@ -236,8 +243,17 @@
                 
     });
 
-    
-      
+    $("#showReportDetail").click(function() {     
+      $.ajax({
+        type: 'GET',
+        url: '<?php echo base_url();?>customer/webuser/get_week_detail_report',         
+        success: function(data) {
+          $("#PopName").text('Weekly Report')                        
+          $("#tblData").html(data);                       
+          $('#ListModal').modal('show');                        
+        }
+      });
+    });
     
 
     var dp=$("#datepicker").datepicker( {

@@ -110,8 +110,61 @@ class Kennel_model extends CI_Model
   
         return $row1;
     }
+    
+    public function get_male_dog_list_by_user()
+    {
+        $this->db->select('a.*');
+		$this->db->from('tbl_dogs a');        
+        $this->db->where('a.user_id',$this->session->userdata('u_user_id'));
+        $this->db->where('a.display','Y');       
+        $this->db->where('a.gender', 'male');
+        $this->db->order_by('a.dog_id',"DESC");
+        $query = $this->db->get();       
+		return $query->result_array();
+    }
 
-    // 6/9/2022
+    public function get_spause_dog($male_dog) {
+        $this->db->where('parent_id', $male_dog);
+        $query = $this->db->get('tbl_dogs');
+        $result = $query->result_array();
+       // echo"<pre>";print_r($result);die;
+        $femaleDog = array();
+        
+        if($result){
+            if($result['0']['mother_id']!= null || $result['0']['mother_id']!= 0){
+            foreach ($result as $dogRow) {
+                $this->db->where('dog_id', $dogRow['mother_id']);
+                $query = $this->db->get('tbl_dogs');
+                foreach ($query->result() as $dog) {
+                    $femaleDog[] = "<option value='" . $dog->dog_id . "'>" . $dog->dog_name . "</option>";
+                }
+            }
+            }
+        }else{
+            $femaleDog[] = "<option value=''>Spause not avialable</option>";
+        }      
+        return implode('', $femaleDog);
+    }
+
+    public function get_dog_literacy_male_or_female_parent_data($dog_id){
+        $this->db->where('dog_id', $dog_id);
+        $query = $this->db->get('tbl_dogs');
+        return $query->first_row('array');
+    }
+
+    public function get_dog_childerns_data_by_parent($mdog_id,$fdog_id){
+        $this->db->select('a.*');
+		$this->db->from('tbl_dogs a');        
+        // $this->db->where('a.user_id',$this->session->userdata('u_user_id'));
+        // $this->db->where('a.display','Y');       
+        $this->db->where('a.parent_id', $mdog_id);
+        $this->db->where('a.mother_id', $fdog_id);
+        $this->db->order_by('a.dog_id',"DESC");
+        $query = $this->db->get();       
+		return $query->result_array();
+    }
+
+    // END DOG RELATED FUNCTION
 
     public function get_dog_details_for_tree_strcuture($user_id)
     {
@@ -347,7 +400,7 @@ class Kennel_model extends CI_Model
                 'breed_judge' => $row['breed_judge'],
                 'groop_judge' => $row['groop_judge'],
                 'provisional' => $row['provisional'],
-
+                'show_judges_name' => $row['show_judges_name'],
                 'dog_handled_by' => $row['dog_handled_by'],
                 'entry_of_dogs' => $row['entry_of_dogs'],
                 'entry_of_bitches' => $row['entry_of_bitches'],
@@ -393,7 +446,7 @@ class Kennel_model extends CI_Model
 		return  $query->result_array();       
     } 
     
-
+    // not uses
     public function get_parent_with_child_data($user_id)
     {
         $this->db->select('*');
@@ -440,4 +493,243 @@ class Kennel_model extends CI_Model
     function tesss(){
         echo "test";
     }
+
+    /*
+        Show module 
+    */ 
+    public function insert_show_data($data){        
+        $this->db->where('user_id',$data['user_id']);
+        $this->db->where('dog_id',$data['dog_id']);
+        $q = $this->db->get('show_dog');
+       
+        if ($q->num_rows() > 0){           
+            $result = $q->first_row('array'); 
+            return $result['id'];
+        }else{
+            $this->db->insert('show_dog',$data);
+            return $this->db->insert_id(); 
+        }
+    }
+
+    public function insert_show_details($data){
+        $this->db->insert_batch('show_dogdetails',$data);
+        return $this->db->insert_id();
+    }
+
+    public function get_show_list_by_user($user_id){
+        
+        $this->db->select('sd.*,tbl_dogs.dog_name');
+		$this->db->from('show_dog sd');
+        $this->db->join('tbl_dogs','tbl_dogs.dog_id = sd.dog_id','INNER');
+		$this->db->where('sd.user_id',$user_id);
+        $this->db->order_by('id','desc');
+            
+		$query = $this->db->get();       
+		$response =  $query->result_array();       
+        $result = [];
+        foreach ($response as $row){
+            $showDetails = $this->get_show_details_by_show_id($row['id']);
+            $result[] = array(
+                'id'=>$row['id'],
+                'user_id'=>$row['user_id'],
+                'dog_id'=>$row['dog_id'],
+                'dog_name'=>$row['dog_name'],
+                'created_at'=>$row['created_date'],
+                'showDetails'=>$showDetails
+            );
+        }
+       
+        return $result;       
+    }
+    
+    public function get_show_details_by_show_id($show_id){
+        $this->db->select('*');
+        $this->db->from('show_dogdetails');       
+        $this->db->where('show_dog_id',$show_id);
+        $this->db->order_by('id','desc');               
+        $query = $this->db->get();       
+        return  $query->result_array();         
+    }
+
+    public function delete_show($id){ 
+        $this->delete_show_details($id);
+        $this->db->where('id',$id);
+        $this->db->delete('show_dog');        
+    }
+
+    public function delete_show_details($show_id){
+        $this->db->where('show_dog_id',$show_id);
+        $this->db->delete('show_dogdetails');
+    }
+
+    public function get_show_with_details_by_id($id){
+        $this->db->select('sd.*,tbl_dogs.dog_name');
+		$this->db->from('show_dog sd');
+        $this->db->join('tbl_dogs','tbl_dogs.dog_id = sd.dog_id','INNER');
+		$this->db->where('sd.id',$id);            
+		$query = $this->db->get();       
+		$response =  $query->row_array();   
+        $showDetails = $this->get_show_details_by_show_id($response['id']);
+        $result = array(
+            'id'=>$response['id'],
+            'user_id'=>$response['user_id'],
+            'dog_id'=>$response['dog_id'],
+            'dog_name'=>$response['dog_name'],
+            'created_at'=>$response['created_date'],
+            'showDetails'=>$showDetails
+        );
+        return $result;  
+    }
+
+    public function update_show($data,$id) { 
+        
+        $this->db->where('id',$id);
+        $query=  $this->db->update('show_dog',$data);       
+        return $this->db->affected_rows();       
+    } 
+
+    public function update_show_details($data){
+       
+        foreach($data as $row){
+           
+            $rowData = array(
+              
+                    'show_dog_id' =>$row['show_dog_id'],
+                    'show_location' =>$row['show_location'],
+                    'club_name' => $row['club_name'],
+                    'show_date' => $row['show_date'],
+                    'entry_fee' => $row['entry_fee'],
+                    'photographer' =>$row['photographer'],
+                    'photographer_contact' => $row['photographer_contact'],
+                    'superintendent' => $row['superintendent'],
+                    'show_chair' => $row['show_chair'],
+                    'show_chair_contact' => $row['show_chair_contact'],
+                    'breed_judge' => $row['breed_judge'],
+                    'breed_judge_provisinal' => $row['breed_judge_provisinal'],
+                    'group_judge' => $row['group_judge'],
+                    'group_judge_provosional' => $row['group_judge_provosional'],
+                    'nohs_group_judge' => $row['nohs_group_judge'],
+                    'nohs_group_judge_provosinal' => $row['nohs_group_judge_provosinal'],
+                    'best_show_judge' => $row['best_show_judge'],
+                    'nohs_best_show_judge' => $row['nohs_best_show_judge'],
+                    'comments_show_grounds' => $row['comments_show_grounds'],
+                    'dog_handledby' => $row['dog_handledby'],
+
+                    'class_entered' => $row['class_entered'],
+
+                    'entry_fee2section' => $row['entry_fee2section'],
+                    'number_ofclass_dog' => $row['number_ofclass_dog'],
+                    'number_of_class_bitches' => $row['number_of_class_bitches'],
+                    'non_regular_entry' => $row['non_regular_entry'],
+                    'bob_entries' => $row['bob_entries'],
+                    'total_entry_showing_breed' => $row['total_entry_showing_breed'],
+                    'major_entry' =>$row['major_entry'],
+                    'first_award_received' => $row['first_award_received'],
+                    'second_award_recived' => $row['second_award_recived'],
+                    'third_award_recived' => $row['third_award_recived'],
+                    'fourth_award_recived' =>$row['fourth_award_recived'],
+                    'comments_judging' =>$row['comments_judging'],
+                    'group_placement' => $row['group_placement'],
+                    'group_points' => $row['group_points'],
+                    'nohs_group_placement' => $row['nohs_group_placement'],
+                    'nohs_group_points' => $row['nohs_group_points'],
+                    'best_show_in3section' =>$row['best_show_in3section'],
+                    'best_show_entry' => $row['best_show_entry'],
+                    'reserved_best_show' =>$row['reserved_best_show'],
+                    'nohs_best_show_3section' =>$row['nohs_best_show_3section'],
+                    'nohs_show_entry_3section' =>$row['nohs_show_entry_3section'],
+                    'nohs_reserved_bst_show' => $row['nohs_reserved_bst_show'],
+                    'non_regular_group_3section' => $row['non_regular_group_3section'],
+                    'group_judge_3section' => $row['group_judge_3section'],
+                    'group_placement_3section' => $row['group_placement_3section'],
+                    'non_regular_best_show_3section' => $row['non_regular_best_show_3section'],
+                    'non_regular_best_show_judge_3section' =>$row['non_regular_best_show_judge_3section'],
+                    'commenst_show_grounds_judging' =>$row['commenst_show_grounds_judging'],
+            );
+            $this->db->where('id',$row['id']);
+            $this->db->where('show_dog_id',$row['show_dog_id']);
+            $q = $this->db->get('show_dogdetails');
+
+            if ( $q->num_rows() > 0 ) 
+            {
+                $this->db->where('id',$row['id']);
+                $this->db->where('show_dog_id',$row['show_dog_id']);
+                $this->db->update('show_dogdetails',$rowData);
+            } else {
+                $this->db->insert('show_dogdetails',$rowData);
+                return $this->db->insert_id(); 
+                
+            }
+        }
+    }
+
+
+
+    /*
+    END SHOW MODULE FUNCTION 
+    */ 
+    
+     /*
+       START  HANDLERS MODULE
+    */ 
+    public function fetch_handler_expense_by_user($user_id){
+        $this->db->select('*');
+		$this->db->from('handlers_expense');
+		$this->db->where('user_id',$user_id);
+        $this->db->order_by('id','desc');        
+		$query = $this->db->get();       
+		return $query->result_array();
+    } 
+
+    public function insert_handler_expense($data){
+        $this->db->insert('handlers_expense',$data);
+        return $this->db->insert_id();
+    } 
+
+    public function delete_handler_expense($id){       
+        $this->db->where('id',$id);
+        $this->db->delete('handlers_expense');        
+    }
+
+    public function get_handler_expense_by_id($id){
+        $this->db->select('*');
+		$this->db->from('handlers_expense');
+		$this->db->where('id',$id);
+		$query = $this->db->get();
+		return $query->first_row('array');
+    }
+
+    public function update_handler_expense($data,$id) { 
+        
+        $this->db->where('id',$id);
+        $query=  $this->db->update('handlers_expense',$data);       
+        return $this->db->affected_rows();       
+    } 
+
+    public function get_handler_expense_invoice_id($id){
+        $this->db->select('he.*,u.firstname,u.lastname,u.email,u.address,u.mobile,u.fullname');
+		$this->db->from('handlers_expense he');
+        $this->db->join('tbl_user u','u.user_id = he.user_id','LEFT');
+		$this->db->where('he.id',$id);
+		$query = $this->db->get();
+       // echo $this->db->get();die;
+		return $query->first_row('array');        
+    }
+
+    public function get_dog_name_by_id_arr($dodidArr){
+        $dogs = explode(",",$dodidArr);
+        //$dognamearr = array();
+        foreach($dogs as $dog){
+            $this->db->select('dog_name');
+            $this->db->from('tbl_dogs');
+            $this->db->where('dog_id',$dog);
+            $query = $this->db->get();
+            $dognamearr[] =  $query->first_row('array');
+        }
+
+       return  $dognamearr;
+    }
+    /*
+    END HANDLERS MODULE
+    */ 
 }

@@ -105,7 +105,6 @@ class Slider extends CI_Controller
         if($data['sliderRow']['banner']){
             unlink('uploads/banner/'.$data['sliderRow']['banner']);
         }
-      
         $this->model_slider->delete_slider($id);
         $success = 'Product is deleted successfully';
         $this->session->set_flashdata('success',$success);

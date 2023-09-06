@@ -15,62 +15,6 @@ class Advertise extends CI_Controller {
         $data['title']   = 'Advertise'; 
         $data['bannerList'] = $this->banner_model->branding_list(); 
         $this->load->view('useradmin/advertise-view',$data);
-        /*
-        
-        $image1="assets/dist/img/banner1.png";   // background img 
-        $image2="assets/dist/img/123.jpg";   // source img
-        
-        list($width,$height) = getimagesize($image2);
-       
-        $image1 = imagecreatefromstring(file_get_contents($image1));
-        $image2 = imagecreatefromstring(file_get_contents($image2));
-
-        imagecopymerge($image1, $image2, 360, 360, 0, 0, $width, $height, 100);
-
-        // first positon of => background img
-        // second positiion => source img
-        // source img from left side alignment which value is 100 or first value
-        // second value from top position 
-        // 3rd posiotin value taret to source img content so that value as 0 
-        // 4 th value of bottom to top target of img content 0
-        // $width = actual width size
-        // $height = actual height of img 
-        // last value img blur(dark,light dark,fent)
-
-        header('content-type: image/png');
-        imagepng($image1);  
-        */
-        
-        
-        /*
-        $filename = 'assets/dist/img/fancy_name.png';
- 
-        $im_php = imagecreatefrompng($filename);
-         
-        $origin_color = imagecolorsforindex($im_php, imagecolorat($im_php, 0, 0));
-         
-        $dark_red = imagecolorallocate($im_php, 100, 0, 30);
-         
-        list($width, $height, $type, $attr) = getimagesize($filename);
-         
-         
-        for($x = 0; $x <= $width - 1; $x++) {
-            for($y = 0; $y <= $height - 1; $y++) {
-         
-                $index_color = imagecolorsforindex($im_php, imagecolorat($im_php, $x, $y));
-         
-                if($origin_color == $index_color) {
-                    imagesetpixel($im_php, $x, $y, $dark_red);
-                }
-            }
-        }
-         
-        imagepng($im_php,'assets/dist/img/fancy_name_changed.png');
-        */
-
-       
-
-
     }
 
     public function checkaddress()
@@ -92,8 +36,9 @@ class Advertise extends CI_Controller {
         }else{
             echo "some problem";
         }
-    }
 
+    }
+    
     public function save_advertise_files_in_folder(){
        
         $img = $_POST['img'];
@@ -127,8 +72,6 @@ class Advertise extends CI_Controller {
         $data['downlodedImgs'] = $images;        
         $this->load->view('useradmin/advertise-downloaded',$data);
     }
-
-    
 
     
 }

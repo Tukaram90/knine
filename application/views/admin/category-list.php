@@ -1,20 +1,9 @@
 <?php $this->load->view('admin/comman/header'); ?>
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-       Category List
-        <small>Category tables</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>       
-        <li class="active">Category List</li>
-      </ol>
-    </section>
-    <section class="content" style="min-height: 50px;">
-     
+    <section class="content-header"><h1> Category </h1></section>
+    <section class="content" style="min-height: 50px;">     
         <a href="<?php echo base_url(); ?>category/add_category" class="btn bg-maroon margin btn-sm" style="float:right"> <i class="fa  fa-plus"></i> Add New</a>
-       
     </section>
     <section class="content">
       <div class="row">
@@ -27,6 +16,7 @@
                 <p><i class="icon fa fa-ban"></i> <?php echo $this->session->flashdata('error'); ?></p>               
               </div>
 	            <?php
+              unset($_SESSION['error']);
 	        }
 	        if($this->session->flashdata('success')) {
 	            ?>             
@@ -35,10 +25,10 @@
                 <p><i class="icon fa fa-check"></i>  <?php echo $this->session->flashdata('success'); ?></p>               
               </div>
 	            <?php
+              unset($_SESSION['success']);
 	        }
 	        ?>           
-          <div class="box">
-                   
+          <div class="box">                   
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -59,12 +49,16 @@
                       ?>
                       <tr>
                         <td><?php echo $i; ?></td>
-                        <td><?php echo $row['category_name']; ?></td>
+                        <td><a href="<?php echo base_url() ?>category/add_category/<?php echo $row['catgory_id']; ?>"><?php echo $row['category_name']; ?></a></td>
                         <td>
                           <?php if($row['active']==1){ ?>
+                            <a href="<?php echo base_url() ?>category/add_category/<?php echo $row['catgory_id']; ?>">
                             <span class="label label-success">Active</span>
+                          </a>
                           <?php }else{ ?>
+                            <a href="<?php echo base_url() ?>category/add_category/<?php echo $row['catgory_id']; ?>">
                             <span class='label label-warning'>Inactive</span>
+                          </a>
                           <?php } ?>
                        </td>
                         <td>

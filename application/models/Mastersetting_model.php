@@ -6,7 +6,6 @@ class Mastersetting_model extends CI_Model
     function kennel_type_list() {
         $this->db->select('*');
         $this->db->from('kennel_types');
-        $this->db->order_by('kennel_type',"asc");  
         $query = $this->db->get();
         return $query->result_array();
     }

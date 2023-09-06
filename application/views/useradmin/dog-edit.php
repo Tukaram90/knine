@@ -10,7 +10,7 @@
 ?>
 <div class="content-wrapper">
     <section class="content-header">
-      <h1> Edit Dog</h1>     
+      <h1> Edit Dog Details</h1>     
     </section>  
     <section class="content">
         <div class="box box-primary">            
@@ -104,8 +104,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="gender">First Owner</label>                        
-                        <input type="text" name="first_owner" class="form-control"  id="first_owner" placeholder="First Owner"  value="<?php  echo(!empty($dogInfo))?$dogInfo['first_owner']:"" ?>">
+                        <label for="gender">Owner</label>                        
+                        <input type="text" name="first_owner" class="form-control"  id="first_owner" placeholder="Owner"  value="<?php  echo(!empty($dogInfo))?$dogInfo['first_owner']:"" ?>">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -121,10 +121,24 @@
                             </div>           
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="img">Images</label>                        
-                        <input type="file" name="img" id="img" class="form-control" $requiredField="required">
-                    </div>            
+                    <!--<div class="form-group">-->
+                    <!--    <label for="img">Images</label>                        -->
+                    <!--    <input type="file" name="img" id="img" class="form-control" $requiredField="required">-->
+                    <!--</div> -->
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label for="img">Image</label>                        
+                                <input type="file" name="img" id="img" class="form-control" $requiredField="required">
+                            </div> 
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="img">Reset Image</label> 
+                                <input type="button" id="file-reset" class="btn btn-block btn-default btn-sm" value="Reset Image"> 
+                            </div>
+                        </div>
+                    </div>
                     <?php if($dogInfo){ ?>
                         <div class="form-group">
                             <img src="<?php if(isset($dogInfo['dog_img']) && !empty($dogInfo['dog_img'])){ echo base_url(); ?>uploads/dogs/<?= $dogInfo['dog_img'];}?>" alt="Dogs Image" style="width:200px">
@@ -134,7 +148,9 @@
 
               <div class="box-footer">
                 <input type="hidden" name="dog_id" value="<?php echo(!empty($dogInfo))?$dogInfo['dog_id']:"" ?>">
-                <button type="submit" class="btn btn-primary" name="add-dog-form">Submit</button>
+                <button type="submit" class="btn btn-primary" name="add-dog-form">Update</button>
+                <a href="<?php echo base_url()?>remove-dog-tem/<?php echo $dogInfo['dog_id']; ?>" class="btn btn-danger" onClick="return confirm('Are you sure?');">Delete</a> 
+                <a href="<?php echo base_url()?>kennel-list" class="btn btn-info" >Return</a> 
               </div>
             </form>
         </div>
@@ -195,6 +211,10 @@
             submitHandler: function (form) {
                 form.submit();
             }
+        });
+        
+        $('#file-reset').on('click', function() {     
+            $('#img').val(''); 
         });
     }); 
 </script>

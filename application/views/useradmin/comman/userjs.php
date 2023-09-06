@@ -20,6 +20,5 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url(); ?>assets/dist/js/demo.js"></script>
 <script src="<?php echo base_url(); ?>webasset/js/webvalidation.js"></script>
-
 </body>
 </html>

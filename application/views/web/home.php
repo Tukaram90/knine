@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
    <div class="container-fluid p-0">
       <?php
-         if($this->session->flashdata('error')) { 
+         /*if($this->session->flashdata('error')) { 
                ?>
                <script>                                          
                   setTimeout(function(){ 
@@ -14,12 +14,12 @@
          }
          if($this->session->flashdata('success')) {
                ?>                 
-                  <div class="alert alert-success mt-5">
+                 <!-- <div class="alert alert-success mt-5">
                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                      <strong>Success!</strong> <?php echo $this->session->flashdata('success'); ?>
-                  </div> 
+                  </div>--> 
                <?php
-         }
+         } */
       ?>                   
     
       <div id="slider" class="overlay-left" style="width:1200px;height:700px;margin:0 auto;margin-bottom: 0px;">         
@@ -51,9 +51,9 @@
             <h2>My Kennel</h2>
          </div>        
    
-         <div class="col-md-10 col-md-offset-1 text-center">
-            <p>Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus vi tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-         </div>		
+         <!--<div class="col-md-10 col-md-offset-1 text-center">-->
+         <!--   <p>Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus vi tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>-->
+         <!--</div>		-->
       </div>
       
       <div class="container-fluid bg-pattern margin1"  data-bottom-top="background-position: 0px 70%,99% 70%;"
@@ -85,22 +85,22 @@
       </div>		 
    </section>
 	  		   
-   <section id="callout2" class="container-fluid bg-darkcolor small-section">
-      <div class="container">          
-         <div class="row">
-            <div class="col-md-3">                
-               <img src="<?php echo base_url(); ?>webasset/img/callout.png" class="img-responsive callout-img" alt="" >
-            </div>             
-            <div class="col-md-7 col-md-offset-1">
-               <div class="page-scroll">
-                  <h3>Join us Today</h3>
-                  <p class="mb-4">Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate attempus vi tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-                  <a href="<?php echo base_url(); ?>contact-us" class="btn btn-secondary">Contact us</a>
-               </div>                 
-            </div>              
-         </div>           
-      </div>        
-   </section>
+   <!--<section id="callout2" class="container-fluid bg-darkcolor small-section">-->
+   <!--   <div class="container">          -->
+   <!--      <div class="row">-->
+   <!--         <div class="col-md-3">                -->
+   <!--            <img src="<?php echo base_url(); ?>webasset/img/callout.png" class="img-responsive callout-img" alt="" >-->
+   <!--         </div>             -->
+   <!--         <div class="col-md-7 col-md-offset-1">-->
+   <!--            <div class="page-scroll">-->
+   <!--               <h3>Join us Today</h3>-->
+   <!--               <p class="mb-4">Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate attempus vi tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>-->
+   <!--               <a href="<?php echo base_url(); ?>contact-us" class="btn btn-secondary">Contact us</a>-->
+   <!--            </div>                 -->
+   <!--         </div>              -->
+   <!--      </div>           -->
+   <!--   </div>        -->
+   <!--</section>-->
      
    <section id="about-index" >
       <div class="container">
@@ -147,7 +147,7 @@
                               </p>
                            </div>                            
                         </div>
-                     
+                        
                         <div class="row margin1 text-center">                             
                            <div class="features col-lg-3 col-sm-6 col-xs-12">
                               <div class="col-xs-12 medium-icon">                                 
@@ -240,12 +240,12 @@
                         <div class="row">
                            <div class="col-md-6 text-center">
                               <p class="name">Mrs. Odebt Massey</p>
-                              <img src="<?php echo base_url(); ?>webasset/img/odebtmm.jpeg" class="img-responsive" alt="">
+                              <img src="<?php echo base_url(); ?>webasset/img/odebtm_home.jpeg" class="img-responsive" alt="">
                            </div>
                            
                            <div class="col-md-6 text-center">
                               <p class="name">Mr. Amol Valimbe</p>
-                              <img src="<?php echo base_url(); ?>webasset/img/amolss.jpeg" class="img-responsive" alt="">
+                              <img src="<?php echo base_url(); ?>webasset/img/amol_home.jpeg" class="img-responsive" alt="">
                            </div>                            
                         </div>                        
                      </div>
@@ -427,7 +427,7 @@
       <div class="container">          
          <div class="col-md-7">
             <h4>Subscribe to our system</h4>
-            <p>Fusce mollis imperdiet interdum donec eget metus auguen unc vel lorem.</p>
+            <!--<p>Fusce mollis imperdiet interdum donec eget metus auguen unc vel lorem.</p>-->
          </div>
          <div class="col-md-4">             	
             <div id="mc_embed_signup" class="margin1">
@@ -459,21 +459,21 @@
       </div>        
    </section>
       
-   <section class="callout container-fluid no-padding">
+   <!--<section class="callout container-fluid no-padding">-->
       
-      <div class="row-fluid">
-         <div class="col-lg-8 col-md-12 no-padding" data-start="right: 20%;" 
-            data-center="right:0%;">             
-            <img src="<?php echo base_url(); ?>webasset/img/call1.jpg" class="img-responsive img-rounded" alt="">
-         </div>            
-         <div class="callout-box col-lg-6 col-lg-offset-6 bg-darkcolor"  data-start="left: 20%;" 
-            data-center="left:0%;">
-            <h3>We Love Pets</h3>
-            <p>Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus vi tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
-            <a href="<?php echo base_url(); ?>contact-us" class="btn">Contact us</a>
-         </div>           
-      </div>       
-   </section>
+   <!--   <div class="row-fluid">-->
+   <!--      <div class="col-lg-8 col-md-12 no-padding" data-start="right: 20%;" -->
+   <!--         data-center="right:0%;">             -->
+   <!--         <img src="<?php echo base_url(); ?>webasset/img/call1.jpg" class="img-responsive img-rounded" alt="">-->
+   <!--      </div>            -->
+   <!--      <div class="callout-box col-lg-6 col-lg-offset-6 bg-darkcolor"  data-start="left: 20%;" -->
+   <!--         data-center="left:0%;">-->
+   <!--         <h3>We Love Pets</h3>-->
+   <!--         <p>Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus vi tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>-->
+   <!--         <a href="<?php echo base_url(); ?>contact-us" class="btn">Contact us</a>-->
+   <!--      </div>           -->
+   <!--   </div>       -->
+   <!--</section>-->
    
    <section id="stats" class="bg-lightcolor2" style="margin:5px 0px 5px 0px">
       <div class="section-heading text-center">
@@ -554,3 +554,49 @@
    </div>
 <?php $this->load->view("web/footer"); ?>
 <script src="<?php echo base_url(); ?>webasset/js/homeabout.js"></script>
+<script>
+    /*$(document).ready(function() {
+        $("#subscribe-form").on('submit', function(e){
+			e.preventDefault();
+            
+			
+			var email = $('#EMAIL').val();
+         if(email == '')
+         {
+            return false;
+         }			
+
+			let _URL = '<?php echo base_url(); ?>home/save_subscriber';
+
+            $.ajax({
+				url: _URL,
+				type: "POST",
+				data: {				
+					email: email,												
+				},
+				cache: false,
+				success: function(dataResult){
+					var data = JSON.parse(dataResult);
+				
+					if(data.status ==true){ 
+                       
+						$("#mce-success-response").show();
+						
+						$('#EMAIL').val('');
+						
+						setTimeout(function(){
+							$("#mce-success-response").hide();
+						}, 5000);
+					}
+					else {
+						$("#mce-error-response").show();
+						//$('#fail').text(dataResult.msg);
+					}
+					
+				}
+			});
+
+
+        })
+    })*/
+</script>

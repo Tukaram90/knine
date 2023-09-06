@@ -68,11 +68,12 @@
                       <?php $i=1; foreach($dogListByUserDetails as $row): ?>
                         <tr> 
                           <td><?= $i ?></td>
-                          <td><?= $row['dog_name'] ?></td> 
-                          <td><?= $row['registration_no'] ?></td>
-                          <td><?= $row['chip_number'] ?></td>                          
-                          <td><?= $row['kennel_type'] ?></td>
+                          <td><a href="<?php echo base_url() ?>edit-dog/<?php echo $row['dog_id']; ?>"><?= $row['dog_name'] ?></a></td> 
+                          <td><a href="<?php echo base_url() ?>edit-dog/<?php echo $row['dog_id']; ?>"><?= $row['registration_no'] ?></a></td>
+                          <td><a href="<?php echo base_url() ?>edit-dog/<?php echo $row['dog_id']; ?>"><?= $row['chip_number'] ?></a></td>                          
+                          <td><a href="<?php echo base_url() ?>edit-dog/<?php echo $row['dog_id']; ?>"><?= $row['kennel_type'] ?></a></td>
                           <td>
+                              <a href="<?php echo base_url() ?>edit-dog/<?php echo $row['dog_id']; ?>">
                             <?php 
                                $this->db->select('dog_name');
                                $this->db->from('tbl_dogs');
@@ -85,17 +86,19 @@
                             ?>
                               <p><?php echo $res['dog_name']; ?></p>
                             <?php } ?>
+                            </a>
                           </td>
-                          <td><?= $row['gender'] ?></td>
-                          <td><?= $row['date_of_birth'] ?></td>
+                          <td><a href="<?php echo base_url() ?>edit-dog/<?php echo $row['dog_id']; ?>"><?= $row['gender'] ?></a></td>
+                          <td><a href="<?php echo base_url() ?>edit-dog/<?php echo $row['dog_id']; ?>"><?= $row['date_of_birth'] ?></a></td>
                           <td>
                             <img src="<?php if(isset($row['dog_img']) && !empty($row['dog_img'])){ echo base_url(); ?>uploads/dogs/<?= $row['dog_img'];}else{ echo "https://via.placeholder.com/50";}?>" alt="Dogs Image" style="width:50px">
                           </td>
                           <td>
                           <a href="<?php echo base_url() ?>edit-dog/<?php echo $row['dog_id']; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
-                          <!-- <a href="<?php echo base_url()?>delete-dog/<?php echo $row['dog_id']; ?>" class="btn btn-danger btn-xs" onClick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a>  -->
+                          <!--<a href="<?php echo base_url()?>delete-dog/<?php echo $row['dog_id']; ?>" class="btn btn-danger btn-xs" onClick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a> -->
                           <a href="<?php echo base_url()?>remove-dog-tem/<?php echo $row['dog_id']; ?>" class="btn btn-danger btn-xs" onClick="return confirm('Are you sure?');"><i class="fa fa-close"></i></a> 
                           <a href="<?php echo base_url()?>dog-tree-view/<?php echo $row['dog_id']; ?>" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a> 
+                          <a href="<?php echo base_url()?>dog-gallery/<?php echo $row['dog_id']; ?>" class="btn btn-info btn-xs"><i class="fa fa-image"></i></a> 
                           <!-- <a href="<?php echo base_url()?>img-operation/<?php echo $row['dog_id']; ?>" class="btn btn-info btn-xs"><i class="fa fa-image"></i></a>  -->
                           </td>              
                          

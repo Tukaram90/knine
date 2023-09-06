@@ -818,7 +818,8 @@ class Kennel extends CI_Controller {
                     'Microchip Number'=> $chipNUmber,
                     'Register Number'=> $registerno,
                     'Birth Date'=> $dob,
-                      'photo1'=> ($row->dog_img)? base_url().'uploads/dogs/'.$row->dog_img : base_url().'assets/imgs/dplaceholder.jpg',
+                     'Breeder'=> $breeder,
+                    'photo1'=> ($row->dog_img)? base_url().'uploads/dogs/'.$row->dog_img : base_url().'assets/imgs/dplaceholder.jpg',
                 );
                 $result[] = $rowData;
             }
@@ -844,6 +845,7 @@ class Kennel extends CI_Controller {
                 'Microchip Number'=> $chipNUmber,
                 'Register Number'=> $registerno,
                 'Birth Date'=> $dob,
+                'breeder'=> $breeder,
                'photo1'=> ($row->dog_img)? base_url().'uploads/dogs/'.$row->dog_img : base_url().'assets/imgs/dplaceholder.jpg',
            );
            $result = array_merge($result, (array)$this->getFamilyTree($row->parent_id,$childID));
@@ -854,5 +856,85 @@ class Kennel extends CI_Controller {
         return $result;
         }
     } 
+    
+    public function literacy_tree_structure(){        
+        $data['active']  = 'LiteracyStructure';
+        $data['title']   = 'Literacy structure';
+        $user_id = $this->session->userdata("u_user_id"); 
+        $data['dogList'] = $this->kennel_model->get_male_dog_list_by_user();       
+        $this->load->view('useradmin/literacy-tree-structure',$data);        
+    } 
+
+    public function get_spause_dog() {      
+        $male_dog_id = $this->input->post('maleDogID');      
+        $femaleDogs = $this->kennel_model->get_spause_dog($male_dog_id);
+        echo json_encode($femaleDogs);
+    }
+
+    public function get_dog_literacy_pedgree(){
+        $mdog_id = $this->input->post('maleDog');
+        $fdog_id = $this->input->post('femaleDog');
+        $mData = $this->kennel_model->get_dog_literacy_male_or_female_parent_data($mdog_id);
+        $LitArr[] = array(
+            'id' => 'parents',
+            'name' => 'Litter Ad',
+            'tags' => ["directors-group", "group"],
+            'description' => "Top Management" 
+        );
+        if($mData){
+            $dob = ($mData['date_of_birth'])?$mData['date_of_birth']:'';
+            $title = ($mData['title'])?$mData['title']:'';
+            $first_owner = ($mData['first_owner'])?$mData['first_owner']:'';
+            $LitArr[]  = array(
+                'id' => 1,
+                'stpid' => 'parents',
+                'name' => $mData['dog_name'], 
+                'img'=> ($mData['dog_img'])? base_url().'uploads/dogs/'.$mData['dog_img'] : base_url().'assets/imgs/dplaceholder.jpg',
+                'birth Date' => $dob, 
+                'title' =>$title, 
+                'owner' => $first_owner, 
+            );
+            if($fdog_id){
+                $fData = $this->kennel_model->get_dog_literacy_male_or_female_parent_data($fdog_id);
+                $dob = ($fData['date_of_birth'])?$fData['date_of_birth']:'';
+                $title = ($fData['title'])?$fData['title']:'';
+                $first_owner = ($fData['first_owner'])?$fData['first_owner']:'';
+                
+                $LitArr[]  = array(
+                    'id' => 2,
+                    'stpid' => 'parents',
+                    'name' => $fData['dog_name'], 
+                    'img'=> ($fData['dog_img'])? base_url().'uploads/dogs/'.$fData['dog_img'] : base_url().'assets/imgs/dplaceholder.jpg',
+                    'birth Date' => $dob, 
+                    'title' =>$title, 
+                    'owner' => $first_owner, 
+                );
+            }
+            $result = $this->kennel_model->get_dog_childerns_data_by_parent($mdog_id,$fdog_id);
+            if($result){
+                $customIndex = 3 ;
+                
+                foreach ($result as $dogRow) {
+                    $dob = ($dogRow['date_of_birth'])?$dogRow['date_of_birth']:'';
+                    $title = ($dogRow['title'])?$dogRow['title']:'';
+                    $first_owner = ($dogRow['first_owner'])?$dogRow['first_owner']:'';
+                    
+                    $LitArr[]  = array(
+                        'id' => $customIndex,
+                        'pid'=>'parents',
+                        'name' => $dogRow['dog_name'],
+                        'img'=> ($dogRow['dog_img'])? base_url().'uploads/dogs/'.$dogRow['dog_img'] : base_url().'assets/imgs/dplaceholder.jpg',
+                        'birth Date' => $dob, 
+                        'title' =>$title, 
+                        'owner' => $first_owner, 
+                    );
+                    $customIndex++;
+                }
+            }
+        }
+        header('Content-Type: application/json');
+        echo json_encode($LitArr);   
+        exit();
+    }
 
 }

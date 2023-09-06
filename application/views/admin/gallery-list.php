@@ -1,20 +1,9 @@
 <?php $this->load->view('admin/comman/header'); ?>
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 <div class="content-wrapper">
-    <section class="content-header">
-      <h1>
-       Gallery List
-        <small>Gallery tables</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>       
-        <li class="active">Gallery List</li>
-      </ol>
-    </section>
+    <section class="content-header"><h1>Gallery List</h1></section>
     <section class="content" style="min-height: 50px;">
-     
-        <a href="<?php echo base_url(); ?>gallery/add_gallery" class="btn bg-maroon margin btn-sm" style="float:right"> <i class="fa  fa-plus"></i> Add New</a>
-       
+     <a href="<?php echo base_url(); ?>gallery/add_gallery" class="btn bg-maroon margin btn-sm" style="float:right"> <i class="fa  fa-plus"></i> Add New</a>
     </section>
     <section class="content">
       <div class="row">
@@ -26,6 +15,7 @@
                 <p><?php echo $this->session->flashdata('error'); ?></p>
               </div>
 	            <?php
+              unset($_SESSION['error']);
 	        }
 	        if($this->session->flashdata('success')) {
 	            ?>
@@ -33,6 +23,7 @@
                 <p><?php echo $this->session->flashdata('success'); ?></p>
               </div>
 	            <?php
+              unset($_SESSION['success']);
 	        }
 	        ?>          
           <div class="box">
@@ -54,10 +45,14 @@
                         <tr> 
                           <td><?= $i ?></td>
                           <td>
-                            <img src="<?php if(isset($row['photo_name']) && !empty($row['photo_name'])){ echo base_url(); ?>uploads/gallery/<?= $row['photo_name'];}?>" alt="Gallery Image" style="width:50px">
+                            <a href="<?php echo base_url() ?>gallery/edit_gallery/<?php echo $row['gallery_id']; ?>">
+                              <img src="<?php if(isset($row['photo_name']) && !empty($row['photo_name'])){ echo base_url(); ?>uploads/gallery/<?= $row['photo_name'];}?>" alt="Gallery Image" style="width:50px">
+                            </a>
                           </td> 
-                          <td><?= $row['category_name'] ?></td>
-                          <td><?= date('d-m-Y',strtotime($row['created_date'])); ?></td>                
+                          <td>
+                            <a href="<?php echo base_url() ?>gallery/edit_gallery/<?php echo $row['gallery_id']; ?>">
+                            <?= $row['category_name'] ?></a></td>
+                          <td> <a href="<?php echo base_url() ?>gallery/edit_gallery/<?php echo $row['gallery_id']; ?>"><?= date('d-m-Y',strtotime($row['created_date'])); ?></a></td>                
                           <td>
                           <a href="<?php echo base_url() ?>gallery/edit_gallery/<?php echo $row['gallery_id']; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
                           <a href="<?php echo base_url()?>gallery/delete_gallery/<?php echo $row['gallery_id']; ?>" class="btn btn-danger btn-xs" onClick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a> 

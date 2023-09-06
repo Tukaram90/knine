@@ -58,38 +58,6 @@
          </div>
       </div>
       
-      <!-- <div class="row">
-        <div class="col-xs-12 table-responsive">
-          <table class="table table-striped">
-            <thead>
-                
-            </thead>
-            <tbody>
-                <tr>
-                    <th>Dog Name</th>
-                    <td><?= ucfirst($DoseInfo['dog_name']) ?></td>              
-                </tr>
-                <tr>
-                    <th>Date Of Birth</th>
-                    <td><?= ucfirst($DoseInfo['dog_birthdate']) ?></td>              
-                </tr>
-                <tr>
-                    <th>Gender</th>
-                    <td><?= ucfirst($DoseInfo['gender']) ?></td>              
-                </tr>
-                <tr>
-                    <th>Register Number</th>
-                    <td><?= $DoseInfo['registration_no'] ?></td>              
-                </tr>
-                <tr>
-                    <th>Microchip Number</th>
-                    <td><?= $DoseInfo['chip_number'] ?></td>              
-                </tr>
-            </tbody>
-           
-          </table>
-        </div>       
-      </div> -->
       <hr>
       <div class="row">
         

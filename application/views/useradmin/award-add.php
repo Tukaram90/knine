@@ -19,7 +19,7 @@
             <div class="col-md-1"></div>
             <div class="col-md-10">
             <div class="box box-primary">            
-            <form role="form" action="<?php echo base_url(); ?>add-award"  method="post" enctype="multipart/form-data">
+            <form role="form" name="showForm" action="<?php echo base_url(); ?>add-award"  method="post" enctype="multipart/form-data">
               <div class="box-body">
                     <div class="row">
                         <div class="col-md-12">
@@ -40,8 +40,8 @@
                                 <div class="row" id="row1">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="control-label">Award Title 1</label>
-                                            <input type="text" name="awardTitle[]" id="awardTitle"  class="form-control" placeholder="Award Title" />
+                                            <label class="control-label">Show</label>
+                                            <input type="text" name="awardTitle[]" id="awardTitle"  class="form-control" placeholder="Show" />
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -98,13 +98,19 @@
                                 </div> 
 
                                 <div class="row" >
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label for="control-label">Show judges name</label>
+                                            <input type="text" name="judges_name[]" class="form-control" id="judges_name" placeholder="Show judges name" >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="control-label">Group Judge</label>
                                             <input type="text" name="group_judge[]" class="form-control" id="group_judge" placeholder="Group Judge" >
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="control-label">Provisional</label>
                                             <input type="text" name="provisional[]" class="form-control" id="provisional" placeholder="Provisional" >
@@ -162,8 +168,8 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label for="control-label">No In Class</label>
-                                            <input type="text" name="no_in_class[]" class="form-control" id="no_in_class" placeholder="No In Class" >
+                                            <label for="control-label">Total Entry</label>
+                                            <input type="text" name="no_in_class[]" class="form-control" id="no_in_class" placeholder="Total Entry" >
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -190,7 +196,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label for="control-label">Judge Comments</label>
-                                            <input type="text" name="comments_judging[]" class="form-control" id="comments_judging" placeholder="Comments Judging" >
+                                            <!-- <input type="text" name="comments_judging[]" class="form-control" id="comments_judging" placeholder="Comments Judging" > -->
+                                            <textarea class="form-control" rows="3" name="comments_judging[]" class="form-control" id="comments_judging" placeholder="Comments"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -214,6 +221,8 @@
 <?php $this->load->view('useradmin/comman/userfooter'); ?>
 <div class="control-sidebar-bg"></div>
 <?php $this->load->view('useradmin/comman/userjs'); ?>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js?<?= time() ?>"></script>
+
 <script>
      var id =1;
    $('#addbtn').click(function(){
@@ -223,8 +232,8 @@
                         <div class="row" >
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label class="control-label">Award Title ${id}</label>
-                                    <input type="text" name="awardTitle[]" id="awardTitle"  class="form-control" placeholder="Award Title" />
+                                    <label class="control-label">Show ${id}</label>
+                                    <input type="text" name="awardTitle[]" id="awardTitle"  class="form-control" placeholder="Show" />
                                 </div>
                             </div>
                             <div class="col-md-3">
@@ -281,13 +290,19 @@
                         </div> 
 
                         <div class="row" >
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="control-label">Show judges name</label>
+                                    <input type="text" name="judges_name[]" class="form-control" id="judges_name" placeholder="Show judges name" >
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="control-label">Group Judge</label>
                                     <input type="text" name="group_judge[]" class="form-control" id="group_judge" placeholder="Group Judge" >
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="control-label">Provisional</label>
                                     <input type="text" name="provisional[]" class="form-control" id="provisional" placeholder="Provisional" >
@@ -346,8 +361,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="control-label">No In Class</label>
-                                    <input type="text" name="no_in_class[]" class="form-control" id="no_in_class" placeholder="No In Class" >
+                                    <label for="control-label">Total Entry</label>
+                                    <input type="text" name="no_in_class[]" class="form-control" id="no_in_class" placeholder="Total Entry" >
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -373,8 +388,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="control-label">Comments Judging</label>
-                                    <input type="text" name="comments_judging[]" class="form-control" id="comments_judging" placeholder="Comments Judging" >
+                                     <label for="control-label">Comments Judging</label>                                    
+                                    <textarea class="form-control" rows="3" name="comments_judging[]" id="comments_judging" placeholder="Comments"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -387,4 +402,59 @@
        let rowID =  $(this).attr('data-id');
        $('#row'+rowID).remove()
    })
+
+$(function () {
+       
+       var base_url = "<?php echo base_url('customer/kennel/check_unique_microchip'); ?>";       
+       $("form[name='showForm']").validate({
+
+           rules: {
+                dog_id: "required",                
+                'awardTitle[]': {
+                   required: true
+                },
+                'award_date[]':{
+                    required: true
+                },
+                'registration[]':{
+                    required: true
+                },
+                'club_name[]':{
+                    required: true
+                },
+                'location[]':{
+                    required: true
+                },
+
+              
+           },
+           // Specify validation error messages
+           messages: {
+            dog_id: "Please select a valid dog name.",
+            'awardTitle[]': {
+                required: 'Please enter a value for show',
+            },
+            'award_date[]': {
+                required: 'Please enter a value for show Date',
+            },
+             
+           },
+           submitHandler: function (form) {
+               form.submit();
+           }
+       });    
+}); 
 </script>
+<style>
+.error {
+    color: red;
+    font-weight: 400;
+    display: block;
+    padding: 6px 0;
+    font-size: 14px;
+}
+.form-control.error {
+    border-color: red;
+    padding: .375rem .75rem;
+}
+</style>

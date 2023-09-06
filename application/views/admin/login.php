@@ -23,8 +23,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <!-- <a href="<?php echo base_url(); ?>home" target="_blank"><b>K</b>Nine</a> -->
-    <center><img src="<?php echo base_url(); ?>webasset/img/logo.jpg" class="img-responsive" id="weblogo" alt=""> </center>
+    <a href="<?php echo base_url(); ?>home" target="_blank"><b>K9</b>Widget</a>
   </div> 
   <div class="login-box-body">
     <p class="login-box-msg">Sign in to start your session</p>

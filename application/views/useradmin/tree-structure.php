@@ -1,4 +1,7 @@
 <?php $this->load->view('useradmin/comman/userheader'); ?>  
+<?php
+$template_arr = ['olivia','diva','mila','polina','mery','belinda','ula','ana','isla','deborah','Default'];
+?>
 <div class="content-wrapper">
     <section class="content-header">
       <h1>Pedigree  </h1>
@@ -8,7 +11,7 @@
             <div class="box-body">
                 <div class="col-xs-12">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Dog</label>
                                 <select name="dog_id" id="dog_id" class="form-control" autofocus onchange="get_dog_pedgree()">
@@ -19,7 +22,17 @@
                                 </select>
                             </div>
                         </div>
-                        
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Template</label>
+                                <select name="template_id" id="template_id" class="form-control"  onchange="set_emplate()">
+                                    <option value="">Select Template</option>
+                                    <?php foreach($template_arr as $template){ ?>
+                                        <option value="<?= $template ?>" ><?= $template ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                     <div id="appendDiv"></div>  
                 </div>
@@ -45,27 +58,53 @@
    
     <script src="<?php echo base_url(); ?>assets/dist/treeasset/orgchart.js"></script>
 <script>
-   
-    function get_dog_pedgree(){
+   function get_dog_pedgree(){
         var dog_id = $('#dog_id').val();
-        if(dog_id){
+        set_dog_tree_structure(dog_id)
+    }
+
+    function set_emplate(){
+        var dog_id = $('#dog_id').val();
+        var template = $('#template_id').val();
+        if(template=='Default'){
+            template = "rony";
+        }
+        set_dog_tree_structure(dog_id,template) 
+    }
+
+    function set_dog_tree_structure(dogID, templateDefault = "rony"){
+        if(dogID){
             $.ajax({
                 url: '<?= base_url() ?>customer/kennel/get_dog_pedgree',                    
                 type: 'POST',
                 dataType: 'json',
                
-                data: {dog_id:dog_id},
+                data: {dog_id:dogID},
             
                 success: function(data) {
                     console.log(data)
+                    console.table(data)
                     var chart = new OrgChart(document.getElementById("tree"), {
-                         enableSearch: false,
-                         template: "ula",
+                        enableSearch: false, // search field hide 
+                        template: templateDefault,
                        // edit form key
                         editForm: {
-                            titleBinding: "name",
+                            // titleBinding: "name",
                              photoBinding: "photo1",
-                            readOnly: true
+                            readOnly: true, // edit button hide 
+                            // show particular fields on edit form
+                            generateElementsFromFields: false,
+                            elements: [
+                                { type: 'textbox', label: 'Name', binding: 'name'},
+                                { type: 'textbox', label: 'Gender', binding: 'gender'},
+                                { type: 'textbox', label: 'Microchip Number', binding: 'Microchip Number'},
+                                { type: 'textbox', label: 'Register Number', binding: 'Register Number'},
+                                { type: 'textbox', label: 'Birth Date', binding: 'Birth Date'},
+                                { type: 'textbox', label: 'Breeder', binding: 'breeder'},
+                               
+                                     
+                            ]
+                            // end particular fields on edit form 
                         },
                         menu: {
                             pdf: { text: "Export PDF" },
@@ -79,12 +118,13 @@
                             png: { text: "Export PNG" },
                             svg: { text: "Export SVG" }
                         },
-        
+                        
                         nodeBinding: {
                             field_0: "name",
                             field_1: "gender",
                             img_0: "photo1",
                         },
+                       
                         nodes:data 
                         //  [
                         //     { id: 1, name: "Moti",gender:"Male",photo1:"https://placebear.com/640/360" },
@@ -97,7 +137,7 @@
                         // ]
                         
                     });
-                     chart.load(data);
+                    chart.load(data);
 
                 }
             });

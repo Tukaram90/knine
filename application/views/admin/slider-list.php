@@ -3,13 +3,8 @@
 <div class="content-wrapper">
     <section class="content-header">
       <h1>
-       Slider List
-        <small>Slider tables</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>       
-        <li class="active">Slider List</li>
-      </ol>
+       Slider List       
+      </h1>     
     </section>
     <section class="content" style="min-height: 50px;">
      
@@ -26,6 +21,7 @@
                 <p><?php echo $this->session->flashdata('error'); ?></p>
               </div>
 	            <?php
+              unset($_SESSION['error']);
 	        }
 	        if($this->session->flashdata('success')) {
 	            ?>
@@ -33,6 +29,7 @@
                 <p><?php echo $this->session->flashdata('success'); ?></p>
               </div>
 	            <?php
+              unset($_SESSION['success']);
 	        }
 	        ?>          
           <div class="box">
@@ -55,12 +52,15 @@
                         <tr> 
                           <td><?= $i ?></td>
                           <td>
-                            <img src="<?php if(isset($slider['banner']) && !empty($slider['banner'])){ echo base_url(); ?>uploads/banner/<?= $slider['banner'];}?>" alt="Banner Image" style="width:50px">
+                          <a href="<?php echo base_url() ?>slider/edit_slider/<?php echo $slider['slider_id']; ?>">
+                            <img src="<?php if(isset($slider['banner']) && !empty($slider['banner'])){ echo base_url(); ?>uploads/banner/<?= $slider['banner'];}?>" alt="Banner Image" style="width:50px"></a>
                           </td> 
-                          <td><?php echo ($slider['bold_heading'])?$slider['bold_heading']:""?></td>
-                          <td><?php echo ($slider['small_text_msg'])?$slider['small_text_msg']:""?></td>
+                          <td>
+                          <a href="<?php echo base_url() ?>slider/edit_slider/<?php echo $slider['slider_id']; ?>" >
+                            <?php echo ($slider['bold_heading'])?$slider['bold_heading']:""?> </a></td>
+                          <td><a href="<?php echo base_url() ?>slider/edit_slider/<?php echo $slider['slider_id']; ?>"><?php echo ($slider['small_text_msg'])?$slider['small_text_msg']:""?></a></td>
 
-                          <td><?= date('d-m-Y',strtotime($slider['created_date'])); ?></td>                
+                          <td><a href="<?php echo base_url() ?>slider/edit_slider/<?php echo $slider['slider_id']; ?>"><?= date('d-m-Y',strtotime($slider['created_date'])); ?></a></td>                
                           <td>
                           <a href="<?php echo base_url() ?>slider/edit_slider/<?php echo $slider['slider_id']; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>
                           <a href="<?php echo base_url()?>slider/delete_slider/<?php echo $slider['slider_id']; ?>" class="btn btn-danger btn-xs" onClick="return confirm('Are you sure?');"><i class="fa fa-trash"></i></a> 

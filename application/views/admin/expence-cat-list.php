@@ -41,6 +41,7 @@
                 <p><i class="icon fa fa-ban"></i> <?php echo $this->session->flashdata('error'); ?></p>
               </div>
 	            <?php
+	            unset($_SESSION['error']);
 	        }
 	        if($this->session->flashdata('success')) {
 	            ?>
@@ -49,12 +50,13 @@
                   <p><i class="icon fa fa-check"></i><?php echo $this->session->flashdata('success'); ?></p>
               </div>
 	            <?php
+	            unset($_SESSION['success']);
 	        }
 	        ?> 
                    
           <div class="box">                   
             <div class="box-body">
-              <table id="example1" class="table table-bordered table-striped">
+              <table id="example1" class="table table-bordered table-striped tblScrollable">
                 <thead>
                 <tr>
                   <th>#</th>
@@ -66,9 +68,9 @@
                     <?php if(!empty($ExpenceCatList)): ?>
                       <?php $i=1; foreach($ExpenceCatList as $row): ?>
                         <tr> 
-                          <td><?= $i ?></td>
+                          <td><a href="<?php echo base_url() ?>mastersetting/add_expence_category/<?php echo $row['id']; ?>"><?= $i ?></a></td>
                           
-                          <td><?= $row['title'] ?></td>
+                          <td><a href="<?php echo base_url() ?>mastersetting/add_expence_category/<?php echo $row['id']; ?>"><?= $row['title'] ?></a></td>
                                         
                           <td>
                           <a href="<?php echo base_url() ?>mastersetting/add_expence_category/<?php echo $row['id']; ?>" class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></a>

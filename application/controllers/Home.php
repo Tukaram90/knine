@@ -38,13 +38,7 @@ class Home extends CI_Controller {
         $data['galleryList'] = $this->model_gallery->gallery_list_by_category();
                
         $this->load->view('web/gallery',$data);
-    }  
-    
-    public function faq(){
-        $data['active']  = 'faq';
-        $data['title']   = 'Faq';              
-        $this->load->view('web/faq',$data);
-    } 
+    }   
 
     
 

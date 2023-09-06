@@ -37,4 +37,18 @@ class Banner_model extends CI_Model
         $query = $this->db->get();
         return $query->first_row('array');
     }
+    
+    public function image_entry($data){
+		$this->db->insert('dog_gallery',$data);
+        return $this->db->insert_id();
+	}
+
+    public function get_gallery_photo_by_dog_id_user_id($dog_id,$user_id){
+        $this->db->select('id,image_url,img_name');
+		$this->db->from('dog_gallery');
+		$this->db->where('user_id',$user_id);
+        $this->db->where('dog_id',$dog_id);
+		$query = $this->db->get();
+		return $query->result_array();
+    }
 }

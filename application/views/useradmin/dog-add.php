@@ -17,7 +17,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label">Dog Name</label>
-                                <input type="text" name="dogNameStep1" id="dogNameStep1" class="form-control" placeholder="Enter Dog Name" value="<?php  echo(!empty($dogInfo))?$dogInfo['dog_name']:"" ?>" />
+                                <input type="text" name="dogNameStep1" id="dogNameStep1" class="form-control" placeholder="Enter Dog Name" value="<?php  echo(!empty($dogInfo))?$dogInfo['dog_name']:"" ?>"/>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -132,8 +132,24 @@
                                 <input type="button" id="file-reset" class="btn btn-block btn-default btn-sm" value="Reset Image"> 
                             </div>
                         </div>
-                    </div>
-                                         
+                    </div> 
+                    
+                    <div id="image_row">
+                        <div id="image_row_0">                                
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <div class="form-group">
+                                        <label for="imageUpload"><?php echo 'Image gallery photo' ?> </label>
+                                        <input class="form-control" name="imageUpload[]" type="file" id="imageUpload" />
+                                    </div>                                      
+                                </div>
+                                <div class="col-md-2"><br>
+                                <input type="button" value="+" onClick="addImageRow(1);" class="btn btn-info" id="image-add">
+                                <input type="button" value="-" onclick="deleteImageRow(this);" class="btn btn-danger"  id="image-remove">
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>                    
                 </div>          
 
               <div class="box-footer">
@@ -286,22 +302,22 @@
                             console.log(res.success)  
                             if(res.success == 'true'){
                                 toastr.success(res.msg);
-                                // setTimeout(function(){
-                                //        location.reload()
-                                //     }, 3000);
+                                setTimeout(function(){
+                                       location.reload()
+                                    }, 3000);
                             }else{                       
                                 toastr.error(res.msg);
                             }
                         }
                     });
                   
-                }else{                    
+                }else{ 
                     return false;
                 }
                
             }
         });
-
+        
         $('#file-reset').on('click', function() {     
             $('#img').val(''); 
         });
@@ -336,6 +352,25 @@
        
     })
    
+</script>
+<script>
+    var imageRowCounter = 1;
+
+    function addImageRow(air) {
+        "use strict";
+        var imageRow = '';
+        imageRow = '<div id="image_row_' + imageRowCounter + '"><div class="row"><div class="col-md-10"> <div class="form-group"><label for="imageUpload" class="">' + "image" + '<i class="text-danger">*</i></label><input required class="form-control" name="imageUpload[]" type="file" id="imageUpload" data-toggle="tooltip" data-placement="top" title="" aria-required="true"></div></div><br><input type="button" value="+" onClick="addImageRow(1);" class="btn btn-info" id="image-add"> <input type="button" value="-" onclick="deleteImageRow(this);"  class="btn btn-danger"  id="image-remove"></div></div>';
+        $('#image_row').append(imageRow);
+        imageRowCounter++;
+    }
+
+    function deleteImageRow(dir) {
+        "use strict";      
+        var imageRowDiv = $(dir).prev().closest('div').parent().attr('id');        
+        if (imageRowDiv != 'image_row_0') {
+            $('#' + imageRowDiv).remove();
+        }
+    }
 </script>
 <style>
 .error {

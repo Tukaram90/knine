@@ -35,7 +35,7 @@ class User extends CI_Controller {
                 $this->user_model->update_user_session_id($chk['user_id'], $session_id);
                 $ipaddresss = $this->getUserIpAddr();               
                 $getDetails = json_decode(file_get_contents("http://www.geoplugin.net/json.gp?$ipaddresss"));
-                $array = array(
+            	$array = array(
 					'u_user_id'  => $chk['user_id'],
 					'ufullname' => $chk['fullname'],
 					'uemail'    => $chk['email'],
@@ -47,19 +47,16 @@ class User extends CI_Controller {
                     'ukennelLogo'=> $chk['kennel_logo'],
                     'is_user_logged_in' =>'yes',
                     'is_google_user' =>'no',
-                    'screen_width' => $screenwidth,	
                     'session_id' => $session_id,
-                    'currencySymbol'=>	$getDetails->geoplugin_currencySymbol			
+                    'currencySymbol'=>	$getDetails->geoplugin_currencySymbol
                 );
-                
                 $this->session->set_userdata($array); 
-                //redirect(base_url().'home');
-                if($screenwidth<768){
+                //redirect(base_url().'home');                
+                if($screenwidth<768){                    
                     redirect(base_url().'user-dashboard');
-                }else{
+                }else{                   
                     redirect(base_url().'reports');
                 }
-                
             }
         }else{      
             $this->load->view('web/user-login',$data);
@@ -67,13 +64,16 @@ class User extends CI_Controller {
     }
 
     public function google_login()
-    {   
+    {
         $data['active']  = 'user';
         $data['title']   = 'User Authentication'; 
          //google login
-         $clientId = '643987456575-b3nfifs1b3llqv1ejod4gthgau8vo3sq.apps.googleusercontent.com'; //Google client ID
-         $clientSecret = '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'; //Google client secret
-         $redirectURL = base_url() .'user/google_login';
+        //  $clientId = '643987456575-b3nfifs1b3llqv1ejod4gthgau8vo3sq.apps.googleusercontent.com'; //Google client ID
+        //  $clientSecret = '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'; //Google client secret
+
+        $clientId = '787943044583-4bnh94rhs5q4m3tbdjovdaj8110ldet1.apps.googleusercontent.com'; //Google client ID
+        $clientSecret = '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'; //Google client secret
+        $redirectURL = base_url() .'user/google_login';
          
          //https://curl.haxx.se/docs/caextract.html
  
@@ -126,12 +126,11 @@ class User extends CI_Controller {
                      'status'   => 'Active',                    
                      'created_at'=>date('Y-m-d'),
                      'channel'    =>'gmail',
+                     
                  ];
                  $this->user_model->createGoogleUser($userdata);                 
              }
              $profileData = $this->user_model->getGoogleUserDetailsByOuthId($userProfile['id']);
-             
-             //$this->user_model->update_user_session_id($chk['user_id'], $session_id);
              $ipaddresss = $this->getUserIpAddr();               
              $getDetails = json_decode(file_get_contents("http://www.geoplugin.net/json.gp?$ipaddresss"));
              $array = array(
@@ -147,7 +146,7 @@ class User extends CI_Controller {
                 'is_user_logged_in' =>'yes',
                 'is_google_user' =>'yes',
                 'session_id' => $session_id,
-                'currencySymbol'=>	$getDetails->geoplugin_currencySymbol							
+                'currencySymbol'=>	$getDetails->geoplugin_currencySymbol
             );
              //$this->session->set_userdata("google_user",$userdata);
              $this->session->set_userdata($array);
@@ -161,7 +160,7 @@ class User extends CI_Controller {
          }
          
     }
-
+    
     function getUserIpAddr(){        
         if(!empty($_SERVER['HTTP_CLIENT_IP'])){           
             $ip = $_SERVER['HTTP_CLIENT_IP'];
@@ -172,8 +171,6 @@ class User extends CI_Controller {
         }
         return $ip;
     }
-     
-    
 
     public function register_user(){ 
         $data['active']  = 'userregister';
@@ -212,18 +209,7 @@ class User extends CI_Controller {
             if( $password !=  $confirm_password) {
             	$valid = 0;
 			    $error .= 'Password and Confirm Passwordcan did not matched'.'<br>';
-            }
-            
-            // if( empty($kernal_name) ) {
-            // 	$valid = 0;
-			//     $error .= 'Kennel Name can not be empty'.'<br>';
-            // }
-
-            
-            // if( empty($mobile) ) {
-            // 	$valid = 0;
-			//     $error .= 'Mobile can not be empty'.'<br>';
-            // }
+            }         
             
             if( empty($address) ) {
             	$valid = 0;
@@ -358,6 +344,8 @@ class User extends CI_Controller {
                 );
                 $this->user_model->update_token($email,$form_data);
                 $msg = '<p>To reset your password, please <a href="'.base_url().'user/reset_password/'.$email.'/'.$forgotToken.'">click here</a> and enter a new password';
+                $reset_url = site_url('user/reset_password/'.$email.'/'.$forgotToken);
+                $email_message = "Please click on the following link to reset your password: $reset_url";
                 $config = Array(
                     'protocol' => 'smtp',
                     'smtp_host' => 'ssl://smtp.googlemail.com',
@@ -374,7 +362,7 @@ class User extends CI_Controller {
                     $this->email->to($email);
                     $subject = "Password reset";
                     $this->email->subject($subject);
-                    $this->email->message($msg);
+                    $this->email->message($email_message);
                     $this->email->send();
 
                 $success = "Successfully send link Check your email and reset your password";

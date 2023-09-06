@@ -39,7 +39,7 @@
                     </div>
                     <div id="DivAppend">
                         <?php if(isset($AwardDetail) && !empty($AwardDetail)){ $i=0;?>
-                            <?php foreach($AwardDetail['awardDetails'] as $details) { $i++;?>
+                            <?php foreach($AwardDetail['awardDetails'] as $details) { $i++; ?>
                             <div class="panel panel-default" id="row<?= $i ?>">
                                 <div class="panel-body">
                                     <div class="row" >
@@ -103,13 +103,19 @@
                                     </div>                                    
 
                                     <div class="row" >
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <label for="control-label">Show judges name</label>
+                                                <input type="text" name="judges_name[]" class="form-control" id="judges_name" placeholder="Show judges name" value="<?= $details['show_judges_name']  ?>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="control-label">Group Judge</label>
                                                 <input type="text" name="group_judge[]" class="form-control" id="group_judge" placeholder="Group Judge" value="<?= $details['groop_judge']  ?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="control-label">Provisional</label>
                                                 <input type="text" name="provisional[]" class="form-control" id="provisional" placeholder="Provisional" value="<?= $details['provisional']  ?>">
@@ -169,8 +175,8 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
-                                                <label for="control-label">No In Class</label>
-                                                <input type="text" name="no_in_class[]" class="form-control" id="no_in_class" placeholder="No In Class" value="<?= $details['no_in_class']  ?>">
+                                                <label for="control-label">Total Entry</label>
+                                                <input type="text" name="no_in_class[]" class="form-control" id="no_in_class" placeholder="Total Entry" value="<?= $details['no_in_class']  ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -197,7 +203,8 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label for="control-label">Comments Judging</label>
-                                                <input type="text" name="comments_judging[]" class="form-control" id="comments_judging" placeholder="Comments Judging" value="<?= $details['comments_judging']  ?>">
+                                                <!-- <input type="text" name="comments_judging[]" class="form-control" id="comments_judging" placeholder="Comments Judging" value="<?= $details['comments_judging']  ?>"> -->
+                                                <textarea class="form-control" rows="3" name="comments_judging[]" id="comments_judging" placeholder="Comments"><?= $details['comments_judging']  ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -293,13 +300,19 @@
 
                                
                         <div class="row" >
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="control-label">Show judges name</label>
+                                    <input type="text" name="judges_name[]" class="form-control" id="judges_name" placeholder="Show judges name" >
+                                </div>
+                            </div>
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="control-label">Group Judge</label>
                                     <input type="text" name="group_judge[]" class="form-control" id="group_judge" placeholder="Group Judge" >
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="control-label">Provisional</label>
                                     <input type="text" name="provisional[]" class="form-control" id="provisional" placeholder="Provisional" >
@@ -359,8 +372,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="control-label">No In Class</label>
-                                    <input type="text" name="no_in_class[]" class="form-control" id="no_in_class" placeholder="No In Class" >
+                                    <label for="control-label">Total Entry</label>
+                                    <input type="text" name="no_in_class[]" class="form-control" id="no_in_class" placeholder="Total Entry" >
                                 </div>
                             </div>
                             <div class="col-md-4">
@@ -386,8 +399,8 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="form-group">
-                                    <label for="control-label">Comments Judging</label>
-                                    <input type="text" name="comments_judging[]" class="form-control" id="comments_judging" placeholder="Comments Judging" >
+                                     <label for="control-label">Comments Judging</label>                                    
+                                    <textarea class="form-control" rows="3" name="comments_judging[]" id="comments_judging" placeholder="Comments"></textarea>
                                 </div>
                             </div>
                         </div>

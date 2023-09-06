@@ -234,7 +234,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Dog's Father</label>                           
-                                        <select name="dog_father_step2" id="dog_father_step2" class="form-control" >
+                                    <select name="dog_father_step2" id="dog_father_step2" class="form-control" >
                                             <option value="">Select Father</option>
                                             <?php foreach($FatherdogListByUser as $dog){ ?>
                                                 <option value="<?= $dog['dog_id'] ?>" <?php if(!empty($dogInfo) && isset($dogInfo)){ if($dog['dog_id']==$dogInfo['parent_id']){echo"selected";} } ?>><?= $dog['dog_name'] ?></option>
@@ -265,7 +265,7 @@
                                     <div class="form-group">
                                         <label for="control-label">Date Of Death</label>
                                         <input type="Date" name="dog_dod_step2" class="form-control" id="dog_dod_step2" placeholder="Date Of Death" value="<?php  echo(!empty($dogInfo))?$dogInfo['date_of_birth']:"" ?>">
-                                    </div>  
+                                    </div>
                                 </div>
                             </div>
                             <div class="row">
@@ -338,6 +338,7 @@
                             <?php } ?>
                             <input type="hidden" name="dog_id" value="<?php echo(!empty($dogInfo))?$dogInfo['dog_id']:"" ?>">
                             <button class="btn btn-success btn-lg pull-right marginBottom" type="submit" name="FinishForm">Finish!</button>
+                            
                         </div>
                     </div>
                 </div>               

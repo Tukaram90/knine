@@ -2,24 +2,13 @@
 <link rel="stylesheet" href="<?php echo base_url(); ?>assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
 <div class="content-wrapper">
     <section class="content-header">
-      <h1>
-       Slider Form 
-        <small>Slider</small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>       
-        <li class="active">Edit Slider</li>
-      </ol>
-    </section>
-    
+      <h1>Slider</h1>     
+    </section>    
     <section class="content">
       <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">             
-          <div class="box box-primary"> 
-            <div class="box-header with-border">
-              <a href="<?php echo base_url(); ?>slider" class="btn btn-info btn-xs pull-right" >List</a> 
-            </div>                       
+          <div class="box box-primary">                                  
             <form role="form" method="post" action="<?php echo base_url() ?>slider/edit_slider/<?php echo $sliderRow['slider_id'];  ?>" enctype="multipart/form-data">
               <div class="box-body">
                 <div class="col-md-12 col-lg-12 col-sm-12">
@@ -51,6 +40,7 @@
               </div>             
               <div class="box-footer">                
                 <button type="submit" class="btn btn-primary" name="edit-slider-form" >Submit</button>
+                <a href="<?php echo base_url(); ?>slider" class="btn btn-info pull-right" >Return</a>
               </div>
             </form>
           </div> 

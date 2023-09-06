@@ -1,6 +1,5 @@
 <?php $this->load->view("web/header"); ?>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-
     <style>
         .margintop{
             margin-top:2%;
@@ -11,12 +10,10 @@
             <div class="jumbo-heading" data-stellar-background-ratio="1.2">
                 <h1>Login</h1>
             </div>
-        </div>
-        
+        </div>        
         <div class="container">
             <?php
                 if($this->session->flashdata('error')) { 
-                    
                    ?>
                     <script>                                          
                         setTimeout(function(){ 
@@ -64,10 +61,8 @@
                             <div class="col-md-6">
                             Don't have an account? <a href="<?php echo base_url(); ?>register-user"> Sign Up </a>
                             </div>
-
                         </div>
-                    </div>
-                    
+                    </div> 
                     
                 </div> 
                 <div class="col-md-2 col-lg-2"></div>                      

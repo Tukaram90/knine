@@ -86,7 +86,7 @@
             <div class="col-md-3">
                 <div class="form-group">
                     <label class="control-label">Next Appointment</label>
-                    <input type="date" name="next_appointment[]" id="next_appointment" class="form-control" placeholder="Next Appointment" required> 
+                    <input type="date" name="next_appointment[]" id="next_appointment" class="form-control" placeholder="Next Appointment" > 
                 </div>
             </div>
             <div class="col-md-1"><br>

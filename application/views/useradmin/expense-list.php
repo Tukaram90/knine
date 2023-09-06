@@ -90,10 +90,10 @@
                         <?php foreach($expenseList as $row){?>
                             <tr>
                                 <td><?= $i ?></td>
-                                <td><?= $row['title'] ?></td>
-                                <td><?= $row['amount'].' '.$row['currency'] ?></td>
-                                <td><?= $row['expense_added_date'] ?></td>
-                                <td><?= $row['expense_note'] ?></td>
+                                <td><a href="<?php echo base_url() ?>add-expense/<?php echo $row['expense_id']; ?>" ><?= $row['title'] ?></a></td>
+                                <td><a href="<?php echo base_url() ?>add-expense/<?php echo $row['expense_id']; ?>" ><?= $row['amount'].' '.$row['currency'] ?></a></td>
+                                <td><a href="<?php echo base_url() ?>add-expense/<?php echo $row['expense_id']; ?>" ><?= $row['expense_added_date'] ?></a></td>
+                                <td><a href="<?php echo base_url() ?>add-expense/<?php echo $row['expense_id']; ?>" ><?= $row['expense_note'] ?></a></td>
                                 <td>
                                     <a href="<?php echo base_url() ?>add-expense/<?php echo $row['expense_id']; ?>" class="label label-info"><i class="fa fa-edit" style="color:#fff"></i></a>
                                     <a href="<?php echo base_url()?>delete-expense/<?php echo $row['expense_id']; ?>" class="label label-danger" onClick="return confirm('Are you sure?');"><i class="fa fa-trash-o" style="color:#fff"></i></a>

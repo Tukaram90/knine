@@ -2,12 +2,8 @@
 <div class="content-wrapper">
     <section class="content-header">
       <h1>
-         Kennel Details        
+         Dog Details        
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>       
-        <li class="active">Kennel Details </li>
-      </ol>
     </section>
     
     <section class="invoice">
@@ -16,10 +12,6 @@
             <div class="col-xs-12">
             <h2 class="page-header">
                 <i class="fa fa-globe"></i> Details Page
-                <a href="<?php echo base_url(); ?>mastersetting/fetch_kennels_list" class="pull-right btn btn-info">
-                    <i class="fa fa-list"></i>
-                Back
-                </a>
             </h2>
             </div>        
         </div>
@@ -87,7 +79,8 @@
             </tbody>
           </table>
         </div>
-        
+        <a href="<?php echo base_url(); ?>mastersetting/fetch_kennels_list" class="pull-right btn btn-info">
+        <i class="fa fa-list"></i> Back </a>
       </div>   
       
     </section>   

@@ -24,13 +24,27 @@ if(!$this->session->userdata('user_id')) {
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/dist/css/skins/_all-skins.min.css">  
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+   <style>
+       /*.tblScrollable{
+          display: block;
+            overflow-x: auto;
+            white-space: nowrap;
+       }*/
+       @media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+   </style>        
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
   <header class="main-header">   
     <a href="index2.html" class="logo">     
-      <span class="logo-mini"><b>K</b>9</span>     
+      <span class="logo-mini"><b>K9-WIDGET</b></span>     
       <span class="logo-lg"><b>K9-WIDGET</b></span>
     </a>
 
@@ -167,6 +181,12 @@ if(!$this->session->userdata('user_id')) {
         <li class="<?php if($active == 'banner' || $active == 'add-banner' || $active == 'editbanner' ){ echo 'active'; }?>">
           <a href="<?php echo base_url();?>banner">
             <i class="fa fa-image"></i> <span>Branding Banner</span> 
+            <span class="pull-right-container"></span>
+          </a>
+        </li>
+         <li class="<?php if($active == 'qr' || $active == 'qrlist'){ echo 'active'; }?>">
+          <a href="<?php echo base_url();?>QrController/qrlist">
+            <i class="fa fa-qrcode"></i> <span>QR</span> 
             <span class="pull-right-container"></span>
           </a>
         </li>

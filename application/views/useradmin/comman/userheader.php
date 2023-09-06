@@ -257,12 +257,13 @@ echo chk_user_login_with_multiple_system();
         <li class="<?php if($active == 'Advertise' || $active == 'Pedigree' ){ echo 'active'; }?>">          
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="glyphicon glyphicon-picture collapseIcon"></i></span>
+                <span class="info-box-icon bg-green" style="height: 111px !important;"><i class="glyphicon glyphicon-picture collapseIcon" style="top: 13px"></i></span>
                 <div class="info-box-content">
                   <span class="info-box-text">Advertise</span>
                   <a href="<?php echo base_url();?>advertise" title="Advertise" class="<?php if($active == 'Advertise'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">create Ad</span></a>
                   <a href="<?php echo base_url();?>downloaded-banner" title="Downloaded History" class="<?php if($active == 'History'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Ads</span></a>
                    <a href="<?php echo base_url();?>pedigree" title="Pedigree" class="<?php if($active == 'Pedigree'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Pedigree</span></a>
+                   <a href="<?php echo base_url();?>literacy" title="" class="<?php if($active == 'LiteracyStructure'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Litter Ad</span></a>
                 </div>           
               </div>         
             </div>          
