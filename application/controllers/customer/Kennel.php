@@ -937,4 +937,15 @@ class Kennel extends CI_Controller {
         exit();
     }
 
+    public function get_backgroud_banner_structure(){
+        $id = $this->input->post('id'); 
+        $res = $this->kennel_model->get_backgroud_banner_structure($id);
+        $bg_arr = array('status'=>'false','url'=> 'not');
+        if($res['banner']){
+            $imgUrl = base_url().'uploads/addvertisementbanner/'.$res['banner'];
+            $bg_arr = array('status'=>'true','url'=> $imgUrl);
+        }
+        echo json_encode($bg_arr);
+    }
+
 }

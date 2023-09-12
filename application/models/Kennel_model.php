@@ -732,4 +732,12 @@ class Kennel_model extends CI_Model
     /*
     END HANDLERS MODULE
     */ 
+
+    public function get_backgroud_banner_structure($bannerID) {
+        $this->db->select('banner,id');
+        $this->db->from('addvertisementbanner');		
+        $this->db->where('id', $bannerID);
+		$query = $this->db->get();      
+		return $query->first_row('array');     
+    }
 }
