@@ -17,6 +17,7 @@ class Home_model extends CI_Model
         $this->db->join('tbl_user','tbl_user.user_id = a.user_id','INNER');
         $this->db->where('tbl_user.status','Active');
         $this->db->order_by('a.dog_id',"DESC");
+        $this->db->limit(4);
         $query = $this->db->get();       
 		return $query->result_array();
     }

@@ -51,4 +51,15 @@ class Banner_model extends CI_Model
 		$query = $this->db->get();
 		return $query->result_array();
     }
+    
+  
+	public function update_gallery_image($data,$image_url)
+	{
+		$this->db->where('image_url',$image_url);
+		$result = $this->db->update('dog_gallery',$data);
+		if ($result) {
+			return true;
+		}
+		return false;
+	}
 }

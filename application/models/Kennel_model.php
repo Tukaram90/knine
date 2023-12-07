@@ -75,6 +75,26 @@ class Kennel_model extends CI_Model
         return $this->db->affected_rows();
     }
     
+    public function fetch_dog_gallery_imgs($dog_id){
+        $this->db->select('*');
+		$this->db->from('dog_gallery');
+		$this->db->where('dog_id',$dog_id);
+        $query = $this->db->get();       
+		return $query->result_array();
+    }
+    
+    public function delete_dog_gallery_image($imageId){
+       
+        $gallery_image = $this->db->select('image_url')->from('dog_gallery')->where('id', $imageId)->get()->result();
+        
+        if ($gallery_image) {
+            unlink(FCPATH . $gallery_image['0']->image_url);
+        }
+
+        $this->db->where('id', $imageId);
+        $this->db->delete('dog_gallery');
+    }
+    
 
     public function get_parent_dog_details_byID($dog_id)
     {
@@ -732,7 +752,6 @@ class Kennel_model extends CI_Model
     /*
     END HANDLERS MODULE
     */ 
-
     public function get_backgroud_banner_structure($bannerID) {
         $this->db->select('banner,id');
         $this->db->from('addvertisementbanner');		

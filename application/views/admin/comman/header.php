@@ -184,6 +184,14 @@ if(!$this->session->userdata('user_id')) {
             <span class="pull-right-container"></span>
           </a>
         </li>
+        
+        <li class="<?php if($active == 'subscription_plan' || $active == 'add_subscription' || $active == 'edit-subscription' ){ echo 'active'; }?>">
+          <a href="<?php echo base_url();?>subscription">
+            <i class="fa fa-cc-mastercard"></i> <span>Subscription Plan</span> 
+            <span class="pull-right-container"></span>
+          </a>
+        </li>
+        
          <li class="<?php if($active == 'qr' || $active == 'qrlist'){ echo 'active'; }?>">
           <a href="<?php echo base_url();?>QrController/qrlist">
             <i class="fa fa-qrcode"></i> <span>QR</span> 

@@ -214,7 +214,7 @@ echo chk_user_login_with_multiple_system();
                 <span class="info-box-icon bg-yellow"><i class="fa fa-hand-o-right collapseIcon"></i></span>                
                 <div class="info-box-content" style="padding: 2px 10px !important;">
                   <span class="info-box-text">Dog Details</span>
-                  <a href="<?php echo base_url();?>kennel-list" title="Dog Details" class="<?php if($active == 'kennellist' || $active == 'addkennel' || $active == 'Hierarchical' || $active == 'treestructure' || $active == 'EditDog'){ echo 'activeSubheading'; }?>"><span class="info-box-text">Add Dog</span></a>
+                  <a href="<?php echo base_url();?>kennel-list" title="Dog Details" class="<?php if($active == 'kennellist' || $active == 'addkennel' || $active == 'Hierarchical' || $active == 'treestructure' || $active == 'EditDog' || $active == 'dogGallery'){ echo 'activeSubheading'; }?>"><span class="info-box-text">Add Dog</span></a>
                   <!--<a href="<?php echo base_url();?>kennel-list" title="Dog List" class="<?php if($active == 'kennellist'){echo 'activeSubheading'; }?>"><span class="info-box-text">List</span></a>-->
                   <a href="<?php echo base_url();?>shows" title="Book Event" class="<?php if($active == 'Show'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">CALENDAR</span></a>
                   <!--<a href="<?php echo base_url();?>award-list" title="SHOW RECORDS" class="<?php if($active == 'AwardList' || $active == 'addAward' || $active == 'EditAward' ){ echo 'activeSubheading'; } ?>"><span class="info-box-text">SHOW RECORDS</span></a>-->
@@ -257,11 +257,11 @@ echo chk_user_login_with_multiple_system();
         <li class="<?php if($active == 'Advertise' || $active == 'Pedigree' ){ echo 'active'; }?>">          
             <div class="col-md-12 col-sm-12 col-xs-12">
               <div class="info-box">
-                <span class="info-box-icon bg-green" style="height: 111px !important;"><i class="glyphicon glyphicon-picture collapseIcon" style="top: 13px"></i></span>
+                <span class="info-box-icon bg-green" style="height: 90px !important;"><i class="glyphicon glyphicon-picture collapseIcon" style="top: 13px"></i></span>
                 <div class="info-box-content">
-                  <span class="info-box-text">Advertise</span>
-                  <a href="<?php echo base_url();?>advertise" title="Advertise" class="<?php if($active == 'Advertise'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">create Ad</span></a>
-                  <a href="<?php echo base_url();?>downloaded-banner" title="Downloaded History" class="<?php if($active == 'History'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Ads</span></a>
+                  <span class="info-box-text">PEDIGREE</span>
+                  <!--<a href="<?php echo base_url();?>advertise" title="Advertise" class="<?php if($active == 'Advertise'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">create Ad</span></a>
+                  <a href="<?php echo base_url();?>downloaded-banner" title="Downloaded History" class="<?php if($active == 'History'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Ads</span></a>-->
                    <a href="<?php echo base_url();?>pedigree" title="Pedigree" class="<?php if($active == 'Pedigree'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Pedigree</span></a>
                    <a href="<?php echo base_url();?>literacy" title="" class="<?php if($active == 'LiteracyStructure'){ echo 'activeSubheading'; } ?>"><span class="info-box-text">Litter Ad</span></a>
                 </div>           

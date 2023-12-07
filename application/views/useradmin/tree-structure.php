@@ -71,7 +71,8 @@ $template_arr = ['olivia','diva','mila','polina','mery','belinda','ula','ana','i
         }
         set_dog_tree_structure(dog_id,template) 
     }
-
+    
+    let dogVisitedMap = new Map();
     function set_dog_tree_structure(dogID, templateDefault = "rony"){
         if(dogID){
             $.ajax({
@@ -84,6 +85,32 @@ $template_arr = ['olivia','diva','mila','polina','mery','belinda','ula','ana','i
                 success: function(data) {
                     console.log(data)
                     console.table(data)
+                    dogVisitedMap.clear();
+                    let response_arr = [];
+                    let id=1;
+                    for(let i = 0; i < data.length; i++) {
+                      
+                       let  parentID = getPID(data,data[i].dog_id);
+                       if(parentID == -1){
+                        parentID = 0;
+                       }else{
+                        parentID = parentID + 1;
+                       }
+                       console.log(dogVisitedMap)
+                       var dataObject = {
+                            'id':id,
+                            'pid': parentID,
+                            'dog_id':data[i].dog_id,
+                            'parent_id':data[i].parent_id,
+                            'mother_id':data[i].mother_id,
+                            'name':data[i].name,
+                            'gender':data[i].gender,
+                            'breeder':data[i].breeder,
+                            'photo1':data[i].photo1,
+                        };
+                        response_arr.push(dataObject);
+                       id++;
+                    }
                     var chart = new OrgChart(document.getElementById("tree"), {
                         enableSearch: false, // search field hide 
                         template: templateDefault,
@@ -125,7 +152,136 @@ $template_arr = ['olivia','diva','mila','polina','mery','belinda','ula','ana','i
                             img_0: "photo1",
                         },
                        
-                        nodes:data 
+                        nodes:response_arr 
+                        
+                    });
+                    chart.load(response_arr);
+
+                }
+            });
+        }
+    }
+    
+    function getPID(allDogs,dogID){ 
+        //debugger;
+        dogID = parseInt(dogID);
+        console.log('getPID: '+dogID)
+        var arr = [];
+        for(i= 0; i < allDogs.length;i++){
+            //console.log('getPID: '+ JSON.stringify(allDogs[i]))
+            const fatherID = parseInt(allDogs[i].parent_id);
+            const motherID = parseInt(allDogs[i].mother_id);
+           
+            if( dogID === fatherID || dogID ===  motherID  ){
+                console.log('getPID: parent matched '+ i)
+                let val = dogVisitedMap.get(dogID)
+                if(val == null){
+                    console.log('getiPID : no enty found' )
+                    arr.push(i)
+                    dogVisitedMap.set(dogID,arr);
+                    return i;
+                }else{
+                    console.log('getiPID :  enty found at:',i )
+                    let found = val.find((element)=>element === i);
+                    if(found){
+                        continue;
+                    }else{
+                        arr.push(i);
+                        //dogVisitedMap.set(dogID,arr);
+                        return i;
+                    }
+                }
+            }
+        }
+        console.log('getPID dog not found at all')
+        return -1;      
+    }
+</script>       if(dogID){
+            $.ajax({
+                url: '<?= base_url() ?>customer/kennel/get_dog_pedgree',                    
+                type: 'POST',
+                dataType: 'json',
+               
+                data: {dog_id:dogID},
+            
+                success: function(data) {
+                    
+                    dogVisitedMap.clear();
+                    let response_arr = [];
+                    let id=1;
+                    for(let i = 0; i < data.length; i++) {
+                      
+                       let  parentID = getPID(data,data[i].dog_id);
+                       if(parentID == -1){
+                        parentID = 0;
+                       }else{
+                        parentID = parentID + 1;
+                       }
+                       console.log(dogVisitedMap)
+                       var dataObject = {
+                            'id':id,
+                            'pid': parentID,
+                            'dog_id':data[i].dog_id,
+                            'parent_id':data[i].parent_id,
+                            'mother_id':data[i].mother_id,
+                            'name':data[i].name,
+                            'gender':data[i].gender,
+                            'breeder':data[i].breeder,
+                            'photo1':data[i].photo1,
+                        };
+                        response_arr.push(dataObject);
+                       id++;
+                    }
+                    console.log("------------------------------")
+                    console.log(response_arr)
+                    var chart = new OrgChart(document.getElementById("tree"), {
+                    // mode: 'dark',
+                    // state: {
+                    //     name: 'StateForMyTree',
+                    //     readFromLocalStorage: true,
+                    //     writeToLocalStorage: true,
+                    // },
+                        enableSearch: false, // search field hide 
+                        template: templateDefault,
+                       // edit form key
+                        editForm: {
+                            // titleBinding: "name",
+                             photoBinding: "photo1",
+                            readOnly: true, // edit button hide 
+                            // show particular fields on edit form
+                            generateElementsFromFields: false,
+                            elements: [
+                                { type: 'textbox', label: 'Name', binding: 'name'},
+                                { type: 'textbox', label: 'Gender', binding: 'gender'},
+                                { type: 'textbox', label: 'Microchip Number', binding: 'Microchip Number'},
+                                { type: 'textbox', label: 'Register Number', binding: 'Register Number'},
+                                { type: 'textbox', label: 'Birth Date', binding: 'Birth Date'},
+                                { type: 'textbox', label: 'Breeder', binding: 'breeder'},
+                               
+                                     
+                            ]
+                            // end particular fields on edit form 
+                        },
+                        menu: {
+                            pdf: { text: "Export PDF" },
+                            png: { text: "Export PNG" },
+                            svg: { text: "Export SVG" },
+                            csv: { text: "Export CSV" },
+                            json: { text: "Export JSON" }
+                        },
+                        nodeMenu: {
+                            pdf: { text: "Export PDF" },
+                            png: { text: "Export PNG" },
+                            svg: { text: "Export SVG" }
+                        },
+                        
+                        nodeBinding: {
+                            field_0: "name",
+                            field_1: "gender",
+                            img_0: "photo1",
+                        },
+                       
+                        nodes:response_arr 
                         //  [
                         //     { id: 1, name: "Moti",gender:"Male",photo1:"https://placebear.com/640/360" },
                         //     { id: 2, pid: 1, name: "Ava Field",gender:"Male",photo1:"https://placekitten.com/640/360" },
@@ -137,10 +293,59 @@ $template_arr = ['olivia','diva','mila','polina','mery','belinda','ula','ana','i
                         // ]
                         
                     });
-                    chart.load(data);
+                    chart.load(response_arr);
+                   
 
                 }
             });
         }
     }
+
+    function getPID(allDogs,dogID){ 
+        //debugger;
+        dogID = parseInt(dogID);
+        //console.log('getPID: '+dogID)
+        var arr = [];
+        for(i= 0; i < allDogs.length;i++){
+            //console.log('getPID: '+ JSON.stringify(allDogs[i]))
+            const fatherID = parseInt(allDogs[i].parent_id);
+            const motherID = parseInt(allDogs[i].mother_id);
+           
+            if( dogID === fatherID || dogID ===  motherID  ){
+                console.log('getPID: parent matched '+ i)
+                let val = dogVisitedMap.get(dogID)
+                if(val == null){
+                    console.log('getiPID : no enty found' )
+                    arr.push(i)
+                    dogVisitedMap.set(dogID,arr);
+                    return i;
+                }else{
+                    console.log('getiPID :  enty found at:',i )
+                    let found = val.find((element)=>element === i);
+                    if(found){
+                        continue;
+                    }else{
+                        arr.push(i);
+                        //dogVisitedMap.set(dogID,arr);
+                        return i;
+                    }
+                }
+            }
+        }
+        //console.log('getPID dog not found at all')
+        return -1;      
+    }
 </script> 
+<style>
+    .node {
+    position: relative;
+}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    left: -20px; /* Adjust the positioning as needed */
+    transform: translateY(-50%);
+}
+
+</style>

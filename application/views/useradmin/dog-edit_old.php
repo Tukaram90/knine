@@ -10,11 +10,11 @@
 ?>
 <div class="content-wrapper">
     <section class="content-header">
-      <h1> Edit Dog</h1>     
+      <h1> Edit Dog Details</h1>     
     </section>  
     <section class="content">
         <div class="box box-primary">            
-            <form role="form" name="addDog" id="addDog" action="<?php echo base_url(); ?>customer/kennel/edit_dog/<?= $dogInfo['dog_id']?>" method="post" enctype="multipart/form-data">
+            <form role="form" name="addDog" id="addDog" action="<?php echo base_url(); ?>customer/kennel/entry_dog" method="post" enctype="multipart/form-data">
               <div class="box-body">
                     <div class="row">
                         <div class="col-md-6">
@@ -104,8 +104,8 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="gender">First Owner</label>                        
-                        <input type="text" name="first_owner" class="form-control"  id="first_owner" placeholder="First Owner"  value="<?php  echo(!empty($dogInfo))?$dogInfo['first_owner']:"" ?>">
+                        <label for="gender">Owner</label>                        
+                        <input type="text" name="first_owner" class="form-control"  id="first_owner" placeholder="Owner"  value="<?php  echo(!empty($dogInfo))?$dogInfo['first_owner']:"" ?>">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -121,55 +121,36 @@
                             </div>           
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="img">Images</label>                        
-                        <input type="file" name="img" id="img" class="form-control" $requiredField="required">
-                    </div>            
+                    <!--<div class="form-group">-->
+                    <!--    <label for="img">Images</label>                        -->
+                    <!--    <input type="file" name="img" id="img" class="form-control" $requiredField="required">-->
+                    <!--</div> -->
+                    <div class="row">
+                        <div class="col-md-10">
+                            <div class="form-group">
+                                <label for="img">Image</label>                        
+                                <input type="file" name="img" id="img" class="form-control" $requiredField="required">
+                            </div> 
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label for="img">Reset Image</label> 
+                                <input type="button" id="file-reset" class="btn btn-block btn-default btn-sm" value="Reset Image"> 
+                            </div>
+                        </div>
+                    </div>
                     <?php if($dogInfo){ ?>
                         <div class="form-group">
                             <img src="<?php if(isset($dogInfo['dog_img']) && !empty($dogInfo['dog_img'])){ echo base_url(); ?>uploads/dogs/<?= $dogInfo['dog_img'];}?>" alt="Dogs Image" style="width:200px">
                         </div>
                     <?php } ?>     
-                </div> 
-                
-                <div id="image_row">
-                            <?php $gm=0; if($gallery_images) {
-                            foreach($gallery_images as $gallery_image){
-                            ?>
-                            <div id="image_row_<?php echo $gm;?>">
-                                <div class="row">
-                                    <div class="col-md-10">
-                                        <div class="form-group">
-                                            <label for="imageUpload" class="col-sm-4 col-form-label"><?php echo 'image' ?></label>
-                                            <input class="form-control" name="imageUpload[]"
-                                                       type="file"
-                                                       id="imageUpload" data-toggle="tooltip"
-                                                       data-placement="top" title=""
-                                                       aria-required="true"
-                                                       data-original-title=""/>
-                                                <img class="img img-responsive text-center p_5" src="<?php echo base_url().$gallery_image['image_url'];?>" height="80" width="80" >
-                                                <input type="hidden" value="<?php echo $gallery_image['image_url']  ?>" name="old_gallery_image[]">
-                                            
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2"><br>
-                                    <input type="button" value="+" onClick="addImageRow(<?php  echo $gm; ?>);"
-                                           class="btn btn-info"
-                                           id="image-add">
-                                    <input type="button" value="-" data-image_id="<?php echo $gallery_image['id']  ?>" onclick="deleteImageRow(this);"
-                                           class="btn btn-danger"
-                                           id="image-remove">
-                                    </div>
-                                </div>
-                            </div>
-                            <?php $gm++; } } ?>
-                        </div>
+                </div>          
 
               <div class="box-footer">
                 <input type="hidden" name="dog_id" value="<?php echo(!empty($dogInfo))?$dogInfo['dog_id']:"" ?>">
-                <button type="submit" class="btn btn-primary" name="edit-dog-form">Update</button>
-                <a href="<?php echo base_url()?>remove-dog-tem/<?php echo $dogInfo['dog_id']; ?>" class="btn btn-danger" onClick="return confirm('Are you sure?');"><i class="fa fa-close"></i>Delete</a> 
-                <a href="<?php echo base_url()?>kennel-list" class="btn btn-info" ><i class="fa fa-list"></i>Return</a> 
+                <button type="submit" class="btn btn-primary" name="add-dog-form">Update</button>
+                <a href="<?php echo base_url()?>remove-dog-tem/<?php echo $dogInfo['dog_id']; ?>" class="btn btn-danger" onClick="return confirm('Are you sure?');">Delete</a> 
+                <a href="<?php echo base_url()?>kennel-list" class="btn btn-info" >Return</a> 
               </div>
             </form>
         </div>
@@ -184,108 +165,58 @@
 <!-- jquery validation -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-<!-- Include SweetAlert 2 from a CDN -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script>
-$(function () {
+    $(function () {
       
-      $("form[name='addDog']").validate({
-  
-          rules: {
-              dogNameStep1: "required",
-              registration: "required",
-              phone: "required",
-              subject: "required",
-              message: "required",
-              //microchip_step1: "required",
-              dogNameStep1: {
-                  required: true
-              },
-              registration: {
-                  required: true                  
-              },               
-            //   microchip_step1: {
-            //       required: true,                        
-            //   },
-  
-              dog_gender_step2: {
-                  required: true
-              },
-              img: {
-                  required: false
-              },
-              dog_type_step1:{
-                  required: true
-              }
-          },
-          // Specify validation error messages
-          messages: {
-              dogNameStep1: "Please provide a valid dog name.",
-              registration: {
-                  required: "Please provide a registration number",
-              },
-            //   microchip_step1: {
-            //       required: "Please provide a microchip number",                   
-            //   },
-              dog_gender_step2: "Please select dog gender",               
-          },
-          submitHandler: function (form) {
-              form.submit();
-          }
-      });
-  
-  }); 
-  
-  var imageRowCounter = 1;
-  function addImageRow(air) {
-      "use strict";
-      air = +air+1;
-      var imageRow = '';
-      imageRow = '<div id="image_row_' + air + '"><div class="row"><div class="col-md-10"> <div class="form-group"><label for="imageUpload" class="">' + "image" + '<i class="text-danger">*</i></label><input required class="form-control" name="imageUpload[]" type="file" id="imageUpload" data-toggle="tooltip" data-placement="top" title="" aria-required="true"></div></div><div class="col-md-2"><br><input type="button" value="+" onClick="addImageRow('+air+');" class="btn btn-info" id="image-add"> <input type="button" value="-" onclick="deleteImageRow(this);"  class="btn btn-danger"  id="image-remove"></div></div></div>';
-      $('#image_row').append(imageRow);
-      imageRowCounter++;
-  }
-  
-   function deleteImageRow(dir) {
-    "use strict";
-    var url = '<?php echo base_url("customer/kennel/delete_dog_gallery_image"); ?>';
-    var  imageId= $(dir).attr('data-image_id');
-    var imageRowDiv = $(dir).prev().closest('div').parent().parent().attr('id');
-    //var imageRowDiv = $(dir).prev().closest('div').parent().attr('id');
-     
-    if(imageId && imageRowDiv != 'image_row_0'){        
-        Swal.fire({
-        title: 'Confirm Action',
-        text: 'Are you sure you want to proceed?',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes',
-        cancelButtonText: 'No'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url:url,
-                    type:"post",
-                    data:{imageId:imageId},
-                    success:function(data){
-                        $("#image_row").load(location.href + " #image_row>*", "");
-                    }
-                })
-            } else if (result.dismiss === Swal.DismissReason.cancel) {            
-                Swal.fire('Cancelled', 'Your  file is safe!', 'error');
+        $("form[name='addDog']").validate({
+
+            rules: {
+                dogNameStep1: "required",
+                registration: "required",
+                phone: "required",
+                subject: "required",
+                message: "required",
+                microchip_step1: "required",
+                dogNameStep1: {
+                    required: true
+                },
+                registration: {
+                    required: true                  
+                },               
+                microchip_step1: {
+                    required: true,                        
+                },
+
+                dog_gender_step2: {
+                    required: true
+                },
+                img: {
+                    required: false
+                },
+                dog_type_step1:{
+                    required: true
+                }
+            },
+            // Specify validation error messages
+            messages: {
+                dogNameStep1: "Please provide a valid dog name.",
+                registration: {
+                    required: "Please provide a registration number",
+                },
+                microchip_step1: {
+                    required: "Please provide a microchip number",                   
+                },
+                dog_gender_step2: "Please select dog gender",               
+            },
+            submitHandler: function (form) {
+                form.submit();
             }
         });
-
-            
-            
-    }else{
-        //var imageRowDiv = $(dir).prev().closest('div').parent().attr('id');      
-        if (imageRowDiv != 'image_row_0') {
-            $('#' + imageRowDiv).remove();
-        }        
-    }    
-}
+        
+        $('#file-reset').on('click', function() {     
+            $('#img').val(''); 
+        });
+    }); 
 </script>
 <style>
 .error {

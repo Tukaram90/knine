@@ -233,7 +233,7 @@
                     required: true                  
                 },               
                 microchip_step1: {
-                    required: true,
+                    //required: true,
                     remote: {
                         url: base_url,
                         type: 'post',                           

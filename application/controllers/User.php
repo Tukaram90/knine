@@ -51,7 +51,8 @@ class User extends CI_Controller {
                     'currencySymbol'=>	$getDetails->geoplugin_currencySymbol
                 );
                 $this->session->set_userdata($array); 
-                //redirect(base_url().'home');                
+                //redirect(base_url().'home');  
+                redirect(base_url().'landing-page');
                 if($screenwidth<768){                    
                     redirect(base_url().'user-dashboard');
                 }else{                   

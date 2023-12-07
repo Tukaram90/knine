@@ -9,6 +9,7 @@ class Webuser extends CI_Controller {
         $this->load->model('home_model');
         $this->load->model('user_model');
         $this->load->model('mastersetting_model');
+        $this->load->model('subscription_model');
     }
 
     public function user_dashboard()
@@ -175,6 +176,7 @@ class Webuser extends CI_Controller {
         }
         $data['totalAmount'] = $total;
         $data['expenceData'] = json_encode($expense_arr,JSON_NUMERIC_CHECK);
+        $data['subscriptionPlan'] = $this->subscription_model->get_all_subscription_plan();
         $this->load->view('useradmin/report',$data);        
     }
     
@@ -218,5 +220,15 @@ class Webuser extends CI_Controller {
                  $srNo++;
              }
         }
+    }
+    
+    public function landing_page()
+    {
+        if(empty($this->session->userdata('u_user_id'))){
+            redirect(base_url().'user');
+        }
+        $data['active']  = 'Landing Page';
+        $data['title']   = 'Landing Page';   
+        $this->load->view('useradmin/landing-page',$data);        
     }
 }

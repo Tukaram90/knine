@@ -2,26 +2,7 @@
 <link href="<?php echo base_url(); ?>webasset/css/customweb.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
    <div class="container-fluid p-0">
-      <?php
-         /*if($this->session->flashdata('error')) { 
-               ?>
-               <script>                                          
-                  setTimeout(function(){ 
-                     toastr.error('<?php echo $this->session->flashdata('error'); ?>');
-                  }, 1000);                        
-               </script>
-               <?php
-         }
-         if($this->session->flashdata('success')) {
-               ?>                 
-                 <!-- <div class="alert alert-success mt-5">
-                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                     <strong>Success!</strong> <?php echo $this->session->flashdata('success'); ?>
-                  </div>--> 
-               <?php
-         } */
-      ?>                   
-    
+     
       <div id="slider" class="overlay-left" style="width:1200px;height:700px;margin:0 auto;margin-bottom: 0px;">         
            
          <?php 

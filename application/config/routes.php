@@ -107,6 +107,8 @@ $route['pedigree'] = 'customer/kennel/tree_structure';
 $route['literacy'] = 'customer/kennel/literacy_tree_structure';
 $route['logout'] = 'customer/webuser/logout'; 
 
+$route['landing-page'] = 'customer/webuser/landing_page';
+
 
 // admin
 $route['administrator'] = 'login';
