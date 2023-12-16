@@ -351,8 +351,8 @@ class User extends CI_Controller {
                     'protocol' => 'smtp',
                     'smtp_host' => 'ssl://smtp.googlemail.com',
                     'smtp_port' => 465,
-                    'smtp_user' => 'tukarambgavade1990@gmail.com',
-                    'smtp_pass' => 'Dadasaheb21',
+                    'smtp_user' => '',
+                    'smtp_pass' => '',
                     'mailtype'  => 'html', 
                     'charset'   => 'iso-8859-1'
                     );

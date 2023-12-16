@@ -212,15 +212,15 @@ class User extends CI_Controller {
                 'protocol' => 'smtp',
                 'smtp_host' => 'ssl://smtp.googlemail.com',
                 'smtp_port' => 465,
-                'smtp_user' => 'tukarambgavade1990@gmail.com',
-                'smtp_pass' => 'Dadasaheb21',
+                'smtp_user' => 'emailID',
+                'smtp_pass' => 'your email password',
                 'mailtype'  => 'html', 
                 'charset'   => 'iso-8859-1'
                 );
                 $this->load->library('email', $config);
                 $this->email->set_newline("\r\n");
                 
-                $this->email->from('tukarambgavade1990@gmail.com');
+                $this->email->from('emailID');
                 $this->email->to($email);
                 
                 $subject = "Password reset";
